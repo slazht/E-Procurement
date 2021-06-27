@@ -1,0 +1,101 @@
+<template name="loginUser">
+
+	{{#if renderSignIn}}
+      	<form class="loginFormSignIn"> 
+          	<div class="form-group animated bounceInRight" style="margin-bottom:20px; font-size:15px;">
+	            <label for="inputPassword">Password</label>
+	            <input class="form-control" name="password" style="font-size:15px; height:60px;" autofocus="" placeholder="e.g.,********" type="password">
+          	</div>
+          	<div class="">
+                <button type="submit" class="btn btn-primary btn-lg" id="signIn" style="font-size:15px; margin-bottom:10px; width:100%">Sign In</button>
+          	</div>
+      	</form>
+    {{else}}
+      	<form class="loginFormNext">
+		    <div class="form-group" style="margin-bottom:20px; font-size:15px;">
+		        <label for="inputEmail">Email</label>
+		        <input class="form-control" name="email" style="font-size:15px; height:60px;" placeholder="e.g., foo@mail.com" type="text">
+		    </div>
+            <div class="form-group animated bounceInRight" style="margin-bottom:20px; font-size:15px;">
+                <label for="inputPassword">Password</label>
+                <input class="form-control" name="password" style="font-size:15px; height:60px;" autofocus="" placeholder="e.g.,********" type="password">
+            </div>
+            <div class="">
+                <button type="submit" class="btn btn-primary btn-lg" id="signIn" style="font-size:15px; margin-bottom:10px; width:100%">Sign In</button>
+            </div>
+      	</form>
+    {{/if}}
+    <!--
+    <h4>Forgot your password?  <a href="#" class="resetAja" data-toggle="modal" data-target="#myModal">Reset it</a> </h4>
+    -->
+    
+
+</template>
+
+
+<template name="register">
+	<form id="registerForm">
+        <div class="form-group" style="margin-bottom:10px; font-size:15px;">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" style="font-size:15px; height:50px;" placeholder="e.g., Bambang Yudoyono" type="text">
+        </div>
+        <div class="form-group" style="margin-bottom:10px; font-size:15px;">
+            <label for="email">Email</label>
+            <input class="form-control" name="email" style="font-size:15px; height:50px;" placeholder="e.g., foo@mail.com" type="email">
+        </div>
+        <div class="form-group" style="margin-bottom:10px; font-size:15px;">
+            <label for="depa">Department</label>
+            <input class="form-control" name="departement" style="font-size:15px; height:50px;" placeholder="e.g.,Kab Depok" type="text">
+        </div>
+        <div class="form-group" style="margin-bottom:10px; font-size:15px;">
+            <label for="password">Password</label>
+            <input class="form-control" name="password" style="font-size:15px; height:50px;" placeholder="e.g.,********" type="password">
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h3 style="font-size:15px;">Already have an account? <a class="login-aja" href="/">Sign In</a></h3>
+            </div>
+            <div class="col-md-3 text-right">
+                <button type="submit" class="btn btn-primary btn-lg" style="font-size:15px; margin-bottom:10px;">Sign Up</button>
+            </div>
+        </div>
+    </form>
+</template>
+
+<template name="resetPassword">
+	<form class="formReset">
+    	<div class="form-group animated bounceInRight" style="margin-bottom:20px; font-size:15px;">
+			<label for="inputEmail">Email</label>
+			<input class="form-control" name="email" style="font-size:15px; height:60px;" placeholder="e.g., foo@mail.com" type="text">
+		</div>
+		<div class="">
+        	<button type="submit" class="btn btn-primary btn-lg" id="signIn" style="font-size:15px; margin-bottom:10px; width:100%">Send Reset Link</button>
+        </div>
+        <div class="row">
+	        <div class="col-md-9">
+	            <h3 style="font-size:15px;">Already have an account? <a class="login-aja" href="/">Sign In</a></h3>
+	        </div>
+        </div>
+    </form>
+</template>
+
+<template name="newPasswordReset">
+	<form id="registerForm">
+        <div class="form-group" style="margin-bottom:20px; font-size:15px;">
+            <label for="email">New Password</label>
+            <input class="form-control" name="password1" style="font-size:15px; height:60px;" placeholder="e.g.,********" type="password">
+        </div>
+        <div class="form-group" style="margin-bottom:20px; font-size:15px;">
+            <label for="password">Re Password</label>
+            <input class="form-control" name="password2" style="font-size:15px; height:60px;" placeholder="e.g.,********" type="password">
+        </div>
+        <div class="">
+        	<button type="submit" class="btn btn-primary btn-lg" id="signIn" style="font-size:15px; margin-bottom:10px; width:100%">Send</button>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <h3 style="font-size:15px;"><a class="login-aja" href="/">Sign In</a></h3>
+            </div>
+        </div>
+    </form>
+</template>

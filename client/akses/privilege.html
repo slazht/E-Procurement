@@ -1,0 +1,83 @@
+<template name="privilege">
+
+	<div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div class="page-header">
+                    <h4 class="page-title">User Privilege</h4>
+                    <div class="btn-group btn-group-page-header ml-auto">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    	<div class="col-md-12">
+	                    	<div class="card">
+	                    		<div class="card-header">
+	                    			<div class="pull-right">
+	                    				<button class="btn btn-primary tmbUser" data-toggle="modal" data-target="#modalAddLicense">Add New</button>
+	                    			</div>
+	                    		</div>
+	                    		<div class="card-body">
+	                                
+	                    			<table id="simpletable" class="table">
+	                    				<thead>
+	                    					<tr role="row">
+	                    						<th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">NO</th>
+	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Name</th>
+	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Data</th>
+	                    						{{#each privs}}
+	                    						<th>{{name}} <i class="far fa-trash-alt delpriv"></i></th>
+	                    						{{/each}}
+	                    					</tr>
+	                    				</thead>
+	                    				<tbody>
+	                    					{{#each col in coloms}}
+	                    					<tr role="row" class="odd">
+	                    						<td class="sorting_1">{{numbering @index}}</td>
+	                    						<td>{{col.name}}</td>
+	                    						<td>{{col.data}}</td>
+	                    						{{#each pr in privs}}
+	                    						<td>
+	                    							<input type="checkbox" class="input-check" {{cekEksis col._id pr._id}} value="{{col._id}}_{{pr._id}}">
+	                    						</td>
+	                    						{{/each}}
+	                    					</tr>
+	                                        {{/each}}
+	                    				</tbody>
+	                    			</table>
+
+	                    		</div>
+	                    	</div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalAddLicense" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+        	<div class="modal-content">
+               	<div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Add Privilege</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                	<div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">Name</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control" id="name" placeholder="Name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="saveStatus" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

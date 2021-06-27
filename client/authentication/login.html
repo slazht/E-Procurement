@@ -1,0 +1,38 @@
+<template name="login">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="padding-top:30px; color:gray;">
+            <!-- m husni, 24 nov 2016 -->
+            <div class="text-center">
+                <div class="row">
+                  <div class="col-md-12">
+                    <img src="/acyntia.png" style="width:200px;margin-top:10px;margin-bottom: 10px;margin-left: -30px;" alt="" />
+                  </div>
+                </div>
+              
+              <h1 style="font-weight:bold; margin-top:10px; margin-bottom:10px; font-size:26px;">KPA <small>0.1</small></h1>
+            </div>
+            
+            {{#if loginOrResgister 'login'}}
+              {{>loginUser}}
+            {{/if}}
+
+            {{#if loginOrResgister 'register'}}
+              {{>register}}
+            {{/if}}
+
+            {{#if loginOrResgister 'reset'}}
+              {{>resetPassword}}
+            {{/if}}
+
+            {{#if loginOrResgister 'newpassowd'}}
+              {{>newPasswordReset}}
+            {{/if}}
+
+
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+</template>

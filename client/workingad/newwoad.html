@@ -1,0 +1,67 @@
+<template name="newwoad">
+	<div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div class="page-header">
+                    <h4 class="page-title">{{theTitle}}</h4>
+                    <div class="btn-group btn-group-page-header ml-auto">
+                    </div>
+                </div>
+                <div class="row">
+                	<input class="form-control" id="idd" type="hidden">
+                	{{#each kol in kolomss}}
+                	{{#if isText kol.type 'text'}}
+                    <div class="col-md-6">
+                    	<div class="form-group mb-3">
+	                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+	                        <div class="input-group input-group-merge input-group-alternative">
+	                            <input class="form-control" id="{{kol._id}}" placeholder="{{kol.name}}" type="text" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
+	                        </div>
+	                    </div>
+                    </div>
+                    {{/if}}
+                    {{#if isText kol.type 'number'}}
+                    <div class="col-md-6">
+                    	<div class="form-group mb-3">
+	                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+	                        <div class="input-group input-group-merge input-group-alternative">
+	                            <input class="form-control" id="{{kol._id}}" placeholder="{{kol.name}}" type="number" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
+	                        </div>
+	                    </div>
+                    </div>
+                    {{/if}}
+                    {{#if isText kol.type 'date'}}
+                    <div class="col-md-6">
+                    	<div class="form-group mb-3">
+	                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+	                        <div class="input-group input-group-merge input-group-alternative">
+	                            <input class="form-control" id="{{kol._id}}" placeholder="{{kol.name}}" type="date" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
+	                        </div>
+	                    </div>
+                    </div>
+                    {{/if}}
+                    {{#if isText kol.type 'select'}}
+                    <div class="col-md-6">
+                    	<div class="form-group mb-3">
+	                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+	                        <select class="form-control" id="{{kol._id}}" {{cekAKses kol._id}}>
+	                        	<option value="{{_id}}">-</option>
+	                        	{{#each pilihan kol._id}}
+	                        	<option value="{{_id}}" {{isSelected kol._id _id}}>{{name}}</option>
+	                        	{{/each}}
+						    </select>
+	                    </div>
+                    </div>
+                    {{/if}}
+                    {{/each}}
+                    
+                </div>
+                <div class="row">
+                	<div class="col-md-6">
+                    	<button type="button" id="saveStatus" class="btn btn-block btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
