@@ -7,14 +7,14 @@ import XLSX from 'xlsx';
 
 Template.procurement.onCreated(function helloOnCreated() {
 	Meteor.subscribe('Koloms',{},{})
-	Meteor.subscribe('Values',{},{})
+	Meteor.subscribe('Values',{},{sort:{'createdAt':-1},limit:200})
 	Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
 });
 
 Template.procurement.onRendered(function helloOnCreated() {
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{},{})
+  Meteor.subscribe('Values',{},{sort:{'createdAt':-1},limit:200})
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
 });
@@ -42,7 +42,7 @@ Template.procurement.helpers({
     var filters = Session.get('filter')
     filters['type'] = 'proc'
     //console.log(filters)
-  	data = Values.find(filters)
+  	data = Values.find(filters,{sort:{'createdAt':-1},limit:200})
   	if(data){
   		return data
   	}
