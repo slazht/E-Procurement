@@ -4,6 +4,9 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import { Koloms } from '../libs/kolom.js';
 import { Privilege } from '../libs/privilege.js';
 
+import '../public/bootstrap/css/bootstrap.min.css';
+import '../public/css/azzara.min.css';
+
 import "../public/bootstrap/js/bootstrap.bundle.min.js";
 import "../public/js/jquery-ui.min.js"
 import "../public/js/jquery.scrollbar.min.js"
