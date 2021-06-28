@@ -13,7 +13,8 @@
 	                    	<div class="card">
 	                    		<div class="card-header">
 	                    			<div class="pull-right">
-	                    				<button class="btn btn-primary exportXLS">Export</button>
+	                    				<button class="btn btn-secondary fieldFilter">Filter</button>
+	                    				<button class="btn btn-success exportXLS">Export</button>
 	                    				<a class="btn btn-primary tmbUser" href="/workingadvance/newdata">Add New</a>
 	                    			</div>
 	                    		</div>
@@ -49,6 +50,42 @@
 	                    	</div>
 	                    </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+        	<div class="modal-content">
+               	<div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Filters</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                	{{#each selectKoloms}}
+                    <div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">{{name}}</label>
+                        <select class="form-control" id="filters_{{_id}}">
+                        	<option value="">All</option>
+                        	{{#each pilihans _id}}
+					      	<option value="{{_id}}">{{name}}</option>
+					      	{{/each}}
+					    </select>
+                    </div>
+                    {{/each}}
+                    <div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">Amount Of data</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control" id="amount" placeholder="200" type="number" value="200">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="saveStatus" class="btn btn-primary">Filter</button>
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

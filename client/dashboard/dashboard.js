@@ -47,7 +47,9 @@ Template.dashbord.helpers({
   	}
   },
   formatHarga(harga){
-  	return (harga).toLocaleString("id-IN", {style: "currency", currency: "IDR", minimumFractionDigits: 0}) 
+  	if(harga){
+  		return (harga).toLocaleString("id-IN", {style: "currency", currency: "IDR", minimumFractionDigits: 0}) 
+  	}
   },
   cekName(id){
   	const name = Pilihan.findOne({_id:id})

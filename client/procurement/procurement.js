@@ -7,16 +7,18 @@ import XLSX from 'xlsx';
 
 Template.procurement.onCreated(function helloOnCreated() {
 	Meteor.subscribe('Koloms',{},{})
-	Meteor.subscribe('Values',{},{sort:{'createdAt':-1},limit:200})
+	Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:200})
 	Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
+  Session.set('limit',200)
 });
 
 Template.procurement.onRendered(function helloOnCreated() {
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{},{sort:{'createdAt':-1},limit:200})
+  Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:200})
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
+  Session.set('limit',200)
 });
 
 Template.procurement.helpers({
@@ -39,10 +41,11 @@ Template.procurement.helpers({
     }
   },
   value(){
+    const limit = Session.get('limit')
     var filters = Session.get('filter')
     filters['type'] = 'proc'
     //console.log(filters)
-  	data = Values.find(filters,{sort:{'createdAt':-1},limit:200})
+  	data = Values.find(filters,{sort:{'createdAt':-1},limit:parseInt(limit)})
   	if(data){
   		return data
   	}
@@ -124,6 +127,10 @@ Template.procurement.events({
         //console.log(fil)
       }
       $('#filterModal').modal('hide')
+      const limit = $('#amount').val()
+      //console.log(limit)
+      Session.set('limit',parseInt(limit))
+      Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:parseInt(limit)})
   }
 });
 

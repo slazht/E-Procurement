@@ -7,11 +7,33 @@ import XLSX from 'xlsx';
 
 Template.workingadvance.onCreated(function helloOnCreated() {
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{},{})
+  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:200})
   Meteor.subscribe('Pilihan',{},{})
+  Session.set('filter',{})
+  Session.set('limit',200)
+});
+
+Template.workingadvance.onRendered(function helloOnCreated() {
+  Meteor.subscribe('Koloms',{},{})
+  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:200})
+  Meteor.subscribe('Pilihan',{},{})
+  Session.set('filter',{})
+  Session.set('limit',200)
 });
 
 Template.workingadvance.helpers({
+  selectKoloms(){
+    data = Koloms.find({'data':'woad','type':'select'},{sort:{nomor:1}})
+    if(data){
+      return data
+    }
+  },
+  pilihans(id){
+    data = Pilihan.find({'parent':id})
+    if(data){
+      return data
+    }
+  },
   kolomss() {
     data = Koloms.find({'data':'woad'},{sort:{nomor:1}})
     if(data){
@@ -19,7 +41,11 @@ Template.workingadvance.helpers({
     }
   },
   value(){
-    data = Values.find({'type':'woad'})
+    const limit = Session.get('limit')
+    var filters = Session.get('filter')
+    filters['type'] = 'woad'
+    //console.log(filters)
+    data = Values.find(filters,{sort:{'createdAt':-1},limit:parseInt(limit)})
     if(data){
       return data
     }
@@ -83,18 +109,29 @@ Template.workingadvance.events({
   'click .exportXLS'(e){
      $('.notExporte').remove()
      doit('xlsx','coba.xlsx',true)
-    //const html = document.getElementById('simpletable').innerHTML;
-    //Meteor.call('createWb',html,function(e,s){
-    //  XLSX.writeFile(s, 'sheetjs.xlsx');
-    //})
-    /*
-    $("#simpletable").table2excel({
-      exclude: ".notExporte",
-      name: "Procurement",
-      filename: "SomeFile.xls", 
-      preserveColors: true
-  });
-  */
+    
+  },
+  'click .fieldFilter'(){
+     $('#filterModal').modal('show')
+  },
+  'click #saveStatus'(){
+      data = Koloms.find({'data':'woad','type':'select'},{sort:{nomor:1}})
+      if(data){
+        var fil = {}
+        data.forEach(function(x){
+          const val = $('#filters_'+x._id).val()
+          if(val!=''){
+            fil[x._id] = val
+          }
+        })
+        Session.set('filter',fil)
+        //console.log(fil)
+      }
+      $('#filterModal').modal('hide')
+      const limit = $('#amount').val()
+      //console.log(limit)
+      Session.set('limit',parseInt(limit))
+      Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:parseInt(limit)})
   }
 });
 
