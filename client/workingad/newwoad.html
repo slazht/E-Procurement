@@ -17,6 +17,7 @@
 	                        <div class="input-group input-group-merge input-group-alternative">
 	                            <input class="form-control" id="{{kol._id}}" placeholder="{{kol.name}}" type="text" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
 	                        </div>
+	                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}
@@ -27,6 +28,7 @@
 	                        <div class="input-group input-group-merge input-group-alternative">
 	                            <input class="form-control" id="{{kol._id}}" placeholder="{{kol.name}}" type="number" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
 	                        </div>
+	                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}
@@ -37,6 +39,7 @@
 	                        <div class="input-group input-group-merge input-group-alternative">
 	                            <input class="form-control" id="{{kol._id}}" placeholder="{{kol.name}}" type="date" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
 	                        </div>
+	                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}
@@ -50,6 +53,7 @@
 	                        	<option value="{{_id}}" {{isSelected kol._id _id}}>{{name}}</option>
 	                        	{{/each}}
 						    </select>
+						    <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}

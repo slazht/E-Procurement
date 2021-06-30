@@ -26,6 +26,8 @@
 	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Name</th>
 	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Data</th>
 	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Type</th>
+	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Format</th>
+	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Format</th>
 	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending">Actions</th>
 	                    					</tr>
 	                    				</thead>
@@ -36,6 +38,8 @@
 	                    						<td>{{name}}</td>
 	                    						<td>{{data}}</td>
 	                    						<td>{{type}}</td>
+	                    						<td>{{format}}</td>
+	                    						<td>{{formula}}</td>
 	                    						<td>
 	                    							<button class="editCategori btn btn-success btn-sm">Edit</button>
 	                    							<button class="deleteCategori btn btn-danger btn-sm">Delete</button>
@@ -90,6 +94,23 @@
                         </div>
                     </div>
                     <div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">Rule</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control" id="rules" placeholder="Rules" type="text" value="">
+                        </div>
+                        <div class="demo">
+                        	{{#each statuss}}
+                        		<button class="btn btn-xs btn-info burules" id="f_{{_id}}">{{name}}</button>
+                        	{{/each}}
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">Rule Match Message</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control" id="error" placeholder="Error" type="text">
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
                 		<label class="form-control-label" for="exampleFormControlInput1">Data</label>
                         <select class="form-control" id="data">
                         	<option value="proc">Procurement</option>
@@ -103,6 +124,14 @@
 					      	<option value="select">Select</option>
 					      	<option value="number">Number</option>
 					      	<option value="date">Date</option>
+					    </select>
+                    </div>
+                    <div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">Format</label>
+                        <select class="form-control" id="format">
+                        	<option value="single">Single</option>
+					      	<option value="array">Array</option>
+					      	<option value="chain">Chain</option>
 					    </select>
                     </div>
                 </div>

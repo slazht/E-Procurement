@@ -14,7 +14,7 @@
 	                    	<div class="card">
 	                    		<div class="card-header">
 	                    			<div class="pull-right">
-	                    				<button class="btn btn-primary tmbUser" data-toggle="modal" data-target="#modalAddLicense">Add New</button>
+	                    				<button class="btn btn-primary tmbUser">Add New</button>
 	                    			</div>
 	                    		</div>
 	                    		<div class="card-body">
@@ -70,6 +70,56 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="saveStatus" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalCLMs" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+        	<div class="modal-content">
+               	<div class="modal-header">
+                    <h6 class="modal-title" id="modal-title-default">Add CLM Value</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                	<div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">CLM Name</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control" id="iddd" type="hidden">
+                            <input class="form-control" id="nameclm" placeholder="Name" type="text">
+                        </div>
+                    </div>
+                	<div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">End of time frame</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control" id="sGHo24YR7TxCy78oB" placeholder="-" type="date">
+                        </div>
+                    </div>
+                	<div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">Total Receive in PMI Account</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control ecr" id="2e9AQ4ZSM4eyqjFHm" placeholder="-" type="number" value=0>
+                        </div>
+                    </div>
+                	<div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">CHF Value</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control ecr" id="fuaFpPfkGCjXfNrHf" placeholder="-" type="number" value="0">
+                        </div>
+                    </div>
+                	<div class="form-group mb-3">
+                		<label class="form-control-label" for="exampleFormControlInput1">Echange rate</label>
+                        <div class="input-group input-group-merge input-group-alternative">
+                            <input class="form-control" id="rDp4p9oeLNmmWzqpL" placeholder="-" type="number" value="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="saveclm" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button>
                 </div>
             </div>

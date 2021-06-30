@@ -50,16 +50,75 @@ Template.procurement.helpers({
   		return data
   	}
   },
+  countSpan(row,kol){
+    var res = 1
+    cekKol = Koloms.findOne({_id:kol})
+    if((cekKol && cekKol.format!='array') || kol=='no'){
+      const kols = Koloms.findOne({'data':'proc','format':'array'})
+      if(kols){
+        const vale = Values.findOne({_id:row})
+        if(vale){
+          //console.log(vale[kols._id])
+          const cospan = vale[kols._id].length
+          //console.log(cospan)
+          return cospan
+        }
+      }
+    }
+    return res
+  },
   getValue(kol,type,val){
+    cekKol = Koloms.findOne({_id:kol})
   	const vale = Values.findOne({_id:val})
   	if(vale){
   		if(type=='select'){
-  			v = Pilihan.findOne({_id:vale[kol]})
-    		if(v){
-    			return v.name
-    		}
+        if(Array.isArray(vale[kol])){
+          var result = ''
+          /*
+          vale[kol].forEach(function(x){
+              v = Pilihan.findOne({_id:x})
+              if(v){
+                 result = result + v.name + '</br>'
+              }
+              
+          })
+          */
+          v = Pilihan.findOne({_id:vale[kol][0]})
+          if(v){
+
+             result =  v.name 
+          }
+          //console.log(result)
+          return result
+        }else{
+  			  v = Pilihan.findOne({_id:vale[kol]})
+    		  if(v){
+    			   return v.name
+    		  }
+        }
   		}else{
-  			return vale[kol]
+        //console.log(vale[kol])
+        if(Array.isArray(vale[kol])){
+          //console.log('array')
+          /*
+            var result = ''
+            vale[kol].forEach(function(x){
+              result = result + x + '</br>'
+            })
+            */
+            if(type=='number'){
+              return Number((vale[kol][0]).toFixed(1)).toLocaleString()
+            }else{
+              return vale[kol][0]
+            }
+        }else{
+          if(type=='number'){
+              return Number((vale[kol]).toFixed(1)).toLocaleString()
+          }else{
+              return vale[kol]
+          }
+  			  //return vale[kol]
+        }
   		}
   	}
   },
@@ -79,14 +138,55 @@ Template.procurement.helpers({
     		}
     	})
     }
-    console.log(result)
+    //console.log(result)
     return result
+  },
+  arrayVals(row){
+    var data = []
+    //console.log(row)
+    const kols = Koloms.find({'data':'proc','format':'array'})
+    if(kols){
+      const vale = Values.findOne({_id:row})
+      //console.log(kols.count())
+      kols.forEach(function(x,i){
+        if(data.length < vale[x._id].length){
+          vale[x._id].forEach(function(y,n){
+            data.push({})
+          })
+        }
+        //console.log(data)
+        vale[x._id].forEach(function(y,n){
+          data[n][x._id] = y 
+        })
+      })
+      delete data[0]
+      //console.log(data)
+      return data
+    }
+  },
+  kolomsArr(){
+     const kols = Koloms.find({'data':'proc','format':'array'},{sort:{nomor:1}})
+     if(kols){
+      return kols
+     }
+  },
+  arValues(kolId,val){
+    //console.log(kolId)
+    //console.log(val)
+    const kols = Koloms.findOne({_id:kolId})
+    if(kols && kols.type=='select'){
+      const pilh = Pilihan.findOne({_id:val[kolId]})
+      return pilh.name
+    }
+    if(val){
+      return val[kolId]
+    }
   }
 });
 
 Template.procurement.events({
   'click .deleteCategori'(e){
-  	console.log(e.currentTarget.classList)
+  	//console.log(e.currentTarget.classList)
   	cek =  confirm('Apakah Anda yakin akan menghapus data ini ?')
   	if(cek){
   		Meteor.call('Values.delete',e.target.id,function(e,s){
@@ -108,7 +208,7 @@ Template.procurement.events({
   },
   'click .exportXLS'(e){
   	 $('.notExporte').remove()
-  	 doit('xlsx','coba.xlsx',true)
+  	 doit('xlsx','exported.xlsx',true)
   },
   'click .fieldFilter'(){
      $('#filterModal').modal('show')

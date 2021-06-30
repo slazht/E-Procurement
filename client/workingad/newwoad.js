@@ -134,6 +134,20 @@ Template.newwoad.events({
   },
   'keyup input'(){
   	$('#saveStatus').html('Not Saved')
+    const amre = $('#cSCKJANGQD7prAzWg').val()
+    const chek = $('#YApYN5ySixEGkyhTB').val()
+    const wasd = $('#NwoLPSW83zi6TavQL').val()
+    const pere = $('#FWq72fLyCXSRBwLpW').val()
+    const acin = $('#bTsQ3xLe6N2sYtiaR').val()
+    const wfca = $('#QMGnKd2TXdpx4iirg').val()
+    if(parseInt(amre)!=(parseInt(chek)+parseInt(wasd)+parseInt(pere)+parseInt(acin)+parseInt(wfca))){
+      $('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
+      $('#error__cSCKJANGQD7prAzWg').html('Data tidak sesuai prosedur !')
+      return
+    }else{
+      $('#error__GvZni2SWBtnPLYfYM').html('')
+      $('#error__cSCKJANGQD7prAzWg').html('')
+    }
   	const idd  = FlowRouter.getParam('id');
   	data = {}
     kols = Koloms.find({'data':'woad'},{sort:{nomor:1}})
@@ -170,6 +184,16 @@ Template.newwoad.events({
     			//FlowRouter.go('/procurement')
     		}
     	})
+    }
+  },
+  'change #5SBhqfaBX7ASzLeFA'(e){
+    console.log(e.target.value)
+    const pils = Pilihan.findOne({_id:e.target.value})
+    if(pils){
+      $('#sGHo24YR7TxCy78oB').val(pils.sGHo24YR7TxCy78oB)
+      $('#2e9AQ4ZSM4eyqjFHm').val(pils['2e9AQ4ZSM4eyqjFHm'])
+      $('#fuaFpPfkGCjXfNrHf').val(pils.fuaFpPfkGCjXfNrHf)
+      $('#rDp4p9oeLNmmWzqpL').val(pils.rDp4p9oeLNmmWzqpL)
     }
   }
 });

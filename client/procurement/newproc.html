@@ -1,4 +1,5 @@
 <template name="newprocurement">
+	{{countItems}}
 	<div class="main-panel">
         <div class="content">
             <div class="page-inner">
@@ -17,6 +18,7 @@
 	                        <div class="input-group input-group-merge input-group-alternative">
 	                            <input class="form-control" id="{{kol._id}}" placeholder="-" type="text" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
 	                        </div>
+	                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}
@@ -27,6 +29,7 @@
 	                        <div class="input-group input-group-merge input-group-alternative">
 	                            <input class="form-control" id="{{kol._id}}" placeholder="-" type="number" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
 	                        </div>
+	                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}
@@ -37,6 +40,7 @@
 	                        <div class="input-group input-group-merge input-group-alternative">
 	                            <input class="form-control" id="{{kol._id}}" type="date" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
 	                        </div>
+	                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}
@@ -50,13 +54,86 @@
 	                        	<option value="{{_id}}" {{isSelected kol._id _id}}>{{name}}</option>
 	                        	{{/each}}
 						    </select>
+						    <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
 	                    </div>
                     </div>
                     {{/if}}
                     {{/each}}
-                    
+                    {{#each item in items}}
+                    <div class="col-md-12 items_area" id="fr_{{item}}">
+						<div class="card">
+							<div class="card-header">
+								<div class="card-title"><b>Items #{{item}}</b></div>
+								<div class="pull-right" style="margin-top:-30px;">
+                    				<button class="btn btn-danger btn-sm removeItem" id="r_{{item}}" ><i class="far fa-trash-alt"></i> Remove</button>
+	                    		</div>
+							</div>
+							<div class="card-body">
+								<div class="chart-container">
+
+									<div class="row">
+										{{#each kol in kolomsarray}}
+					                	{{#if isText kol.type 'text'}}
+					                    <div class="col-md-4">
+					                    	<div class="form-group mb-3">
+						                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+						                        <div class="input-group input-group-merge input-group-alternative">
+						                            <input class="form-control" id="{{item}}_{{kol._id}}" placeholder="-" type="text" value="{{atheValue kol._id item}}" {{cekAKses kol._id}}>
+						                            
+						                        </div>
+						                        <small id="error_{{item}}_{{kol._id}}" class="form-text" style="color: red;"></small>
+						                    </div>
+					                    </div>
+					                    {{/if}}
+					                    {{#if isText kol.type 'number'}}
+					                    <div class="col-md-4">
+					                    	<div class="form-group mb-3">
+						                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+						                        <div class="input-group input-group-merge input-group-alternative">
+						                            <input class="form-control" id="{{item}}_{{kol._id}}" placeholder="-" type="number" value="{{atheValue kol._id item}}" {{cekAKses kol._id}}>
+						                        </div>
+						                        <small id="error_{{item}}_{{kol._id}}" class="form-text" style="color: red;"></small>
+						                    </div>
+					                    </div>
+					                    {{/if}}
+					                    {{#if isText kol.type 'date'}}
+					                    <div class="col-md-4">
+					                    	<div class="form-group mb-3">
+						                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+						                        <div class="input-group input-group-merge input-group-alternative">
+						                            <input class="form-control" id="{{item}}_{{kol._id}}" type="date" value="{{atheValue kol._id item}}" {{cekAKses kol._id}}>
+						                        </div>
+						                        <small id="error_{{item}}_{{kol._id}}" class="form-text" style="color: red;"></small>
+						                    </div>
+					                    </div>
+					                    {{/if}}
+					                    {{#if isText kol.type 'select'}}
+					                    <div class="col-md-4">
+					                    	<div class="form-group mb-3">
+						                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+						                        <select class="form-control" id="{{item}}_{{kol._id}}" {{cekAKses kol._id}}>
+						                        	<option value="{{_id}}">-</option>
+						                        	{{#each pilihan kol._id}}
+						                        	<option value="{{_id}}" {{aisSelected kol._id _id item}}>{{name}}</option>
+						                        	{{/each}}
+											    </select>
+											    <small id="error_{{item}}_{{kol._id}}" class="form-text" style="color: red;"></small>
+						                    </div>
+					                    </div>
+					                    {{/if}}
+					                    {{/each}}
+				                	</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					{{/each}}
                 </div>
                 <div class="row">
+                	<div class="col-md-6">
+                		<button type="button" id="addItem" class="btn btn-block btn-success">Add Item</button>
+                	</div>
                 	<div class="col-md-6">
                     	<button type="button" id="saveStatus" class="btn btn-block btn-primary">Save</button>
                     </div>

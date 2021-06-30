@@ -39,7 +39,9 @@
 		                    						{{/each}}
 		                    						<td class="notExporte">
 	                    								<a href="/workingadvance/edit/{{val._id}}" class="btn btn-success btn-sm">Edit</a>
+	                    								{{#if isInRole 'admin,superadmin'}}
 	                    								<button id="{{val._id}}" class="deleteCategori btn btn-danger btn-sm">Delete</button>
+	                    								{{/if}}
 	                    							</td>
 		                    					</tr>
 		                                        {{/each}}

@@ -36,9 +36,12 @@ Template.kolom.events({
     type = $('#type').val()
     data = $('#data').val()
     form = $('#xformula').val()
+    frmt = $('#format').val()
+    rules = $('#rules').val()
+    error = $('#error').val()
   	//console.log(name)
     if(idd==''){
-    	Meteor.call('Koloms.insert',{'name':name,'nomor':parseInt(nomo),'formula':form,'type':type,'data':data},function(e,s){
+    	Meteor.call('Koloms.insert',{'name':name,'nomor':parseInt(nomo),'formula':form,'rules':rules,'error':error,'format':frmt,'type':type,'data':data},function(e,s){
     		if(e){
     			alert(e)
     		}
@@ -46,7 +49,7 @@ Template.kolom.events({
     	})
     }else{
       console.log(idd)
-      Meteor.call('Koloms.update',idd,{'name':name,'nomor':parseInt(nomo),'formula':form,'type':type,'data':data},function(e,s){
+      Meteor.call('Koloms.update',idd,{'name':name,'nomor':parseInt(nomo),'formula':form,'rules':rules,'error':error,'format':frmt,'type':type,'data':data},function(e,s){
         if(e){
           alert(e)
         }else{
@@ -71,8 +74,12 @@ Template.kolom.events({
     $('#name').val('')
     $('#nomor').val(Session.get('last'))
     $('#type').val('')
-    $('#data').val('proc')
+    $('#data').val('')
     $('#idd').val('')
+    $('#format').val('')
+    $('#xformula').val('')
+    $('#rules').val('')
+    $('#error').val('')
   },
   'click .editCategori'(){
     $('#modalAddLicense').modal('show')
@@ -82,6 +89,10 @@ Template.kolom.events({
     $('#nomor').val(this.nomor)
     $('#type').val(this.type)
     $('#data').val(this.data)
+    $('#xformula').val(this.formula)
+    $('#format').val(this.format)
+    $('#rules').val(this.rules)
+    $('#error').val(this.error)
   },
   'click #data'(e){
     Session.set('select',e.target.value)
@@ -90,6 +101,11 @@ Template.kolom.events({
     var foi = $('#xformula').val()
     const colfor = (e.target.id).split('_')[1]
     $('#xformula').val(foi+"{"+colfor+"}")
+  },
+  'click .burules'(e){
+    var foi = $('#rules').val()
+    const colfor = (e.target.id).split('_')[1]
+    $('#rules').val(foi+"{"+colfor+"}")
   }
 });
 
