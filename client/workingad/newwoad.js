@@ -97,6 +97,33 @@ Template.newwoad.helpers({
 Template.newwoad.events({
   'click #saveStatus'() {
   	const idd  = FlowRouter.getParam('id');
+    const amre = $('#cSCKJANGQD7prAzWg').val()
+    const chek = $('#YApYN5ySixEGkyhTB').val()
+    const wasd = $('#NwoLPSW83zi6TavQL').val()
+    const pere = $('#FWq72fLyCXSRBwLpW').val()
+    const acin = $('#bTsQ3xLe6N2sYtiaR').val()
+    const wfca = $('#QMGnKd2TXdpx4iirg').val()
+    if(parseInt(amre)!=(parseInt(chek)+parseInt(wasd)+parseInt(pere)+parseInt(acin)+parseInt(wfca))){
+      //$('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
+      $('#error__cSCKJANGQD7prAzWg').html('Data tidak sesuai prosedur !')
+      //return
+    }else{
+      //$('#error__GvZni2SWBtnPLYfYM').html('')
+      $('#error__cSCKJANGQD7prAzWg').html('')
+    }
+    if(wasd!='' & wasd!=undefined && pere!='' & pere!=undefined & acin!='' & acin!=undefined & wfca!='' & wfca!=undefined ){
+      const note = $('#GvZni2SWBtnPLYfYM').val()
+      if(note=='' || note==undefined){
+        $('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
+        $('#saveStatus').prop('disabled',true)
+        return
+      }else{
+        $('#error__GvZni2SWBtnPLYfYM').html('')
+        $('#saveStatus').prop('disabled',false)
+      }
+    }else{
+      $('#error__GvZni2SWBtnPLYfYM').html('')
+    }
   	data = {}
     kols = Koloms.find({'data':'woad'},{sort:{nomor:1}})
     kols.forEach(function(x){
@@ -141,12 +168,26 @@ Template.newwoad.events({
     const acin = $('#bTsQ3xLe6N2sYtiaR').val()
     const wfca = $('#QMGnKd2TXdpx4iirg').val()
     if(parseInt(amre)!=(parseInt(chek)+parseInt(wasd)+parseInt(pere)+parseInt(acin)+parseInt(wfca))){
-      $('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
+      //$('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
       $('#error__cSCKJANGQD7prAzWg').html('Data tidak sesuai prosedur !')
-      return
+      //return
+    }else{
+      //$('#error__GvZni2SWBtnPLYfYM').html('')
+      $('#error__cSCKJANGQD7prAzWg').html('')
+    }
+    if(wasd!='' & wasd!='0' & wasd!=undefined && pere!='' & pere!='0' & pere!=undefined & acin!='' & acin!='0' & acin!=undefined & wfca!='' & wfca!='0' & wfca!=undefined ){
+      const note = $('#GvZni2SWBtnPLYfYM').val()
+      if(note=='' || note==undefined){
+        $('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
+        $('#saveStatus').prop('disabled',true)
+        return
+      }else{
+        $('#error__GvZni2SWBtnPLYfYM').html('')
+        $('#saveStatus').prop('disabled',false)
+      }
     }else{
       $('#error__GvZni2SWBtnPLYfYM').html('')
-      $('#error__cSCKJANGQD7prAzWg').html('')
+      $('#saveStatus').prop('disabled',false)
     }
   	const idd  = FlowRouter.getParam('id');
   	data = {}

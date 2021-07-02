@@ -56,10 +56,20 @@ Template.workingadvance.helpers({
       if(type=='select'){
         v = Pilihan.findOne({_id:vale[kol]})
         if(v){
-          return v.name
+          if(type=='number'){
+              return Number((v.name).toFixed(1)).toLocaleString()
+          }else{
+              return v.name
+          }
+          //return v.name
         }
       }else{
-        return vale[kol]
+        if(type=='number'){
+          return Number((vale[kol]).toFixed(1)).toLocaleString()
+        }else{
+          return vale[kol]
+        }
+        //return vale[kol]
       }
     }
   },
