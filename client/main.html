@@ -20,5 +20,18 @@
 
 <body>
 
+  <script type="text/javascript" src="https://unpkg.com/floatthead"></script>
+
+  <script type="text/javascript">
+    function createSticky(){
+      var $table = $('table');
+      $table.floatThead({
+          responsiveContainer: function($table){
+              return $table.closest('.table-responsive');
+          }
+      });
+    }
+  </script>
+
 </body>
 

@@ -181,6 +181,11 @@ Template.procurement.helpers({
     if(val){
       return val[kolId]
     }
+  },
+  tables(){
+    setTimeout(function(){
+      createSticky();
+    }, 2000);
   }
 });
 
@@ -252,6 +257,7 @@ function doit(type, fn, dl) {
 	
 	XLSX.writeFile(wb, fn || ('SheetJSTableExport.' + (type || 'xlsx')));
 }
+
 
 
 
