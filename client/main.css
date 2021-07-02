@@ -1,3 +1,11 @@
 body {
   font-family: sans-serif;
 }
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /*To not have transparent background.
+  background-color: white;*/
+}

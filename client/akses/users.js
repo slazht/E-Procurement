@@ -28,6 +28,12 @@ Template.listUsers.helpers({
         return pri.name
       }
     }
+  },
+  ifNoAdmin(){
+    if(this.username!='admin'){
+      return true
+    }
+    return false
   }
 });
 

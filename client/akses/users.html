@@ -36,7 +36,9 @@
 	                    						<td>{{privName}}</td>
 	                    						<td>
 	                    							<button class="editCategori btn btn-success btn-sm">Edit</button>
+                                                    {{#if ifNoAdmin}}
 	                    							<button class="deleteCategori btn btn-danger btn-sm">Delete</button>
+                                                    {{/if}}
 	                    						</td>
 	                    					</tr>
 	                                        {{/each}}

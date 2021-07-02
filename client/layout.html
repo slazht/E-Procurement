@@ -4,7 +4,7 @@
 		<!--
 			Tip 1: You can change the background color of the main header using: data-background-color="blue | purple | light-blue | green | orange | red"
 		-->
-		<div class="main-header" data-background-color="green">
+		<div class="main-header" style="background:#717180;">
 			<!-- Logo Header -->
 			<div class="logo-header">
 				
@@ -26,11 +26,11 @@
 			<!-- End Logo Header -->
 
 			<!-- Navbar Header -->
-			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="green">
+			<nav class="navbar navbar-header navbar-expand-lg" style="background:#717180;">
 				
 				<div class="container-fluid">
-					<div class="collapse" id="search-nav">
-						<form class="navbar-left navbar-form nav-search mr-md-3">
+					<div class="collapse" id="search-nav" style="display:none;">
+						<form class="navbar-left navbar-form nav-search mr-md-3" style="display:none;">
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<button type="submit" class="btn btn-search pr-1">
@@ -42,12 +42,12 @@
 						</form>
 					</div>
 					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-						<li class="nav-item toggle-nav-search hidden-caret">
-							<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+						<li class="nav-item toggle-nav-search hidden-caret" style="display:none;">
+							<a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav" style="display:none;">
 								<i class="fa fa-search"></i>
 							</a>
 						</li>
-						<li class="nav-item dropdown hidden-caret">
+						<li class="nav-item dropdown hidden-caret" style="display:none;">
 							<a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-envelope"></i>
 							</a>
@@ -82,7 +82,7 @@
 								</li>
 							</ul>
 						</li>
-						<li class="nav-item dropdown hidden-caret">
+						<li class="nav-item dropdown hidden-caret" style="display:none;">
 							<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-bell"></i>
 								<!--
@@ -126,18 +126,11 @@
 										<div class="avatar-lg"><img src="/user.png" alt="image profile" class="avatar-img rounded"></div>
 										<div class="u-text">
 											<h4>{{userLogin.username}}</h4>
-											<p class="text-muted">{{#each userLogin.emails}} {{address}} {{/each}}</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a>
+											<p class="text-muted">{{#each userLogin.emails}} {{address}} {{/each}}</p>
 										</div>
 									</div>
 								</li>
 								<li>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#">My Profile</a>
-									<a class="dropdown-item" href="#">My Balance</a>
-									<a class="dropdown-item" href="#">Inbox</a>
-									<div class="dropdown-divider"></div>
-									<a class="dropdown-item" href="#">Account Setting</a>
-									<div class="dropdown-divider"></div>
 									<a id="logout" class="dropdown-item" href="#">Logout</a>
 								</li>
 							</ul>
@@ -159,11 +152,10 @@
 							<img src="/user.png" alt="" class="avatar-img rounded-circle">
 						</div>
 						<div class="info">
-							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+							<a aria-expanded="true">
 								<span>
 									{{userLogin.username}}
 									<span class="user-level">{{priv}}</span>
-									<span class="caret"></span>
 								</span>
 							</a>
 							<div class="clearfix"></div>
