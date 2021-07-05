@@ -186,6 +186,12 @@ Template.procurement.helpers({
     setTimeout(function(){
       createSticky();
     }, 2000);
+  },
+  stikkki(kol){
+    if(kol=='3rEt3S5Sp5DN5ct46'){
+      return 'sickies'
+    }
+    return ''
   }
 });
 

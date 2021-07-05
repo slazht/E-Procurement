@@ -5,3 +5,9 @@ body {
 th {
   background-color: white;
 }
+
+.sickies {
+  background: white;
+  left: 0;
+  position: sticky;
+}

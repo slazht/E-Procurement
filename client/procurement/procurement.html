@@ -35,7 +35,7 @@
 		                    					<tr role="row" class="odd clickable-row {{@index}}" data-href='/procurement/edit/{{val._id}}'>
 		                    						<td class="sorting_1" rowspan="{{countSpan val._id 'no'}}">{{numbering @index}}</td>
 		                    						{{#each kol in kolomss}}
-		                    						<td style="min-width: 94px;" rowspan="{{countSpan val._id kol._id}}">{{{getValue kol._id kol.type val._id}}}</td>
+		                    						<td style="min-width: 94px;" class="{{stikkki kol._id}}" rowspan="{{countSpan val._id kol._id}}">{{{getValue kol._id kol.type val._id}}}</td>
 		                    						{{/each}}
 		                    						<td class="notExporte" rowspan="{{countSpan val._id 'no'}}">
 	                    								<a href="/procurement/edit/{{val._id}}" class="btn btn-success btn-sm">Edit</a>
@@ -47,7 +47,7 @@
 		                    						{{#each ar in arrayVals val._id}}
 		                    							<tr role="row" class="odd clickable-row" data-href='/procurement/edit/{{val._id}}'>
 				                    						{{#each kol in kolomsArr}}
-				                    						<td style="min-width: 94px;">{{arValues kol._id ar}}</td>
+				                    						<td class="{{stikkki kol._id}}" style="min-width: 94px;">{{arValues kol._id ar}}</td>
 				                    						{{/each}}
 				                    					</tr>
 		                    						{{/each}}
