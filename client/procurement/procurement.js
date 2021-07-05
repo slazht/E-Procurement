@@ -11,6 +11,10 @@ Template.procurement.onCreated(function helloOnCreated() {
 	Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
   Session.set('limit',200)
+  if($('.btn-minimize').hasClass('toggled')){
+  }else{
+    $('.btn-minimize').click()
+  }
 });
 
 Template.procurement.onRendered(function helloOnCreated() {
@@ -19,9 +23,23 @@ Template.procurement.onRendered(function helloOnCreated() {
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
   Session.set('limit',200)
+  if($('.btn-minimize').hasClass('toggled')){
+  }else{
+    $('.btn-minimize').click()
+  }
 });
 
 Template.procurement.helpers({
+  lebarnya(id){
+    if(id=='HB6nds6xKNY9nB8KG'){
+      return '100px'
+    }
+    if(id=="3rEt3S5Sp5DN5ct46"){
+      return '165px'
+    }else{
+      return '65px'
+    }
+  },
   selectKoloms(){
     data = Koloms.find({'data':'proc','type':'select'},{sort:{nomor:1}})
     if(data){
@@ -176,7 +194,9 @@ Template.procurement.helpers({
     const kols = Koloms.findOne({_id:kolId})
     if(kols && kols.type=='select'){
       const pilh = Pilihan.findOne({_id:val[kolId]})
-      return pilh.name
+      if(pilh){
+        return pilh.name
+      }
     }
     if(val){
       return val[kolId]
@@ -190,6 +210,9 @@ Template.procurement.helpers({
   stikkki(kol){
     if(kol=='3rEt3S5Sp5DN5ct46'){
       return 'sickies'
+    }
+    if(kol=='ucScBqzoofEuc38RT'){
+      return 'sickiese'
     }
     return ''
   }
@@ -209,16 +232,17 @@ Template.procurement.events({
   	FlowRouter.go('/procurement')
   },
   'click .clickable-row'(e){
-  	if(e.currentTarget.classList){
-  		if((e.currentTarget.classList.value).indexOf('deleteCategori')==-1){
+    if(e.target.classList){
+  		if((e.target.classList.value).indexOf('deleteCategori')==-1){
   			FlowRouter.go(e.currentTarget.dataset.href)
   		}
   	}else{
-  		FlowRouter.go(e.currentTarget.dataset.href)
+  		//FlowRouter.go(e.currentTarget.dataset.href)
   	}
   },
   'click .exportXLS'(e){
   	 $('.notExporte').remove()
+     $('#hiders').css('display','block')
   	 doit('xlsx','exported.xlsx',true)
   },
   'click .fieldFilter'(){
@@ -262,6 +286,7 @@ function doit(type, fn, dl) {
 	var wb = XLSX.utils.table_to_book(elt, {sheet:"Procurement"});
 	
 	XLSX.writeFile(wb, fn || ('SheetJSTableExport.' + (type || 'xlsx')));
+  $('#hiders').css('display','none')
 }
 
 

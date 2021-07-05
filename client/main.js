@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
+import { Accounts } from 'meteor/accounts-base'
 
 import { Koloms } from '../libs/kolom.js';
 import { Privilege } from '../libs/privilege.js';
@@ -51,6 +52,31 @@ Template.layout.events({
   'click #logout'(){
     Meteor.logout();
     FlowRouter.go('/login');
+  },
+  'click #changePass'(){
+    $('#changePassword').modal('show')
+  },
+  'click #eyeLama'(){
+    var x = document.getElementById("passLama");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  },
+  'click #eyeBaru'(){
+    var x = document.getElementById("passBaru");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  },
+  'click #cangepas'(){
+    const pl = $('#passLama')
+    const pb = $('#passBaru')
+    Accounts.changePassword(pl, pb, (error, result) => {})
+    $('#changePassword').modal('hide')
   }
 })
 

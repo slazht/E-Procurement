@@ -96,34 +96,8 @@ Template.newwoad.helpers({
 
 Template.newwoad.events({
   'click #saveStatus'() {
+    cekAmountReceive()
   	const idd  = FlowRouter.getParam('id');
-    const amre = $('#cSCKJANGQD7prAzWg').val()
-    const chek = $('#YApYN5ySixEGkyhTB').val()
-    const wasd = $('#NwoLPSW83zi6TavQL').val()
-    const pere = $('#FWq72fLyCXSRBwLpW').val()
-    const acin = $('#bTsQ3xLe6N2sYtiaR').val()
-    const wfca = $('#QMGnKd2TXdpx4iirg').val()
-    if(parseInt(amre)!=(parseInt(chek)+parseInt(wasd)+parseInt(pere)+parseInt(acin)+parseInt(wfca))){
-      //$('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
-      $('#error__cSCKJANGQD7prAzWg').html('Data tidak sesuai prosedur !')
-      //return
-    }else{
-      //$('#error__GvZni2SWBtnPLYfYM').html('')
-      $('#error__cSCKJANGQD7prAzWg').html('')
-    }
-    if(wasd!='' & wasd!=undefined && pere!='' & pere!=undefined & acin!='' & acin!=undefined & wfca!='' & wfca!=undefined ){
-      const note = $('#GvZni2SWBtnPLYfYM').val()
-      if(note=='' || note==undefined){
-        $('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
-        $('#saveStatus').prop('disabled',true)
-        return
-      }else{
-        $('#error__GvZni2SWBtnPLYfYM').html('')
-        $('#saveStatus').prop('disabled',false)
-      }
-    }else{
-      $('#error__GvZni2SWBtnPLYfYM').html('')
-    }
   	data = {}
     kols = Koloms.find({'data':'woad'},{sort:{nomor:1}})
     kols.forEach(function(x){
@@ -159,7 +133,24 @@ Template.newwoad.events({
     	})
     }
   },
+  'change .form-control'(){
+    const camont = cekAmountReceive()
+    const cekNot = cekNotrans()
+    if(camont==1 & cekNot==1){
+      $('#saveStatus').prop('disabled',false)
+    }else{
+      $('#saveStatus').prop('disabled',true)
+    }
+  },
   'keyup input'(){
+    const camont = cekAmountReceive()
+    const cekNot = cekNotrans()
+    if(camont==1 & cekNot==1){
+      $('#saveStatus').prop('disabled',false)
+    }else{
+      $('#saveStatus').prop('disabled',true)
+    }
+    /*
   	$('#saveStatus').html('Not Saved')
     const amre = $('#cSCKJANGQD7prAzWg').val()
     const chek = $('#YApYN5ySixEGkyhTB').val()
@@ -226,6 +217,7 @@ Template.newwoad.events({
     		}
     	})
     }
+    */
   },
   'change #5SBhqfaBX7ASzLeFA'(e){
     console.log(e.target.value)
@@ -238,5 +230,62 @@ Template.newwoad.events({
     }
   }
 });
+
+function cekAmountReceive(){
+  let savStat = 1
+  const amre = $('#cSCKJANGQD7prAzWg').val()
+  const chek = $('#YApYN5ySixEGkyhTB').val()
+  const wasd = $('#NwoLPSW83zi6TavQL').val()
+  const pere = $('#FWq72fLyCXSRBwLpW').val()
+  const acin = $('#bTsQ3xLe6N2sYtiaR').val()
+  const wfca = $('#QMGnKd2TXdpx4iirg').val()
+  console.log((parseInt(chek)+parseInt(wasd)+parseInt(pere)+parseInt(acin)+parseInt(wfca)))
+  if(parseInt(amre)!=(parseInt(chek)+parseInt(wasd)+parseInt(pere)+parseInt(acin)+parseInt(wfca))){
+    console.log('tidak sama')
+    //$('#error__GvZni2SWBtnPLYfYM').html('Form harus di isi !')
+    $('#error_1_cSCKJANGQD7prAzWg').html('Data tidak sesuai prosedur !')
+    //return
+  }else{
+    //$('#error__GvZni2SWBtnPLYfYM').html('')
+    $('#error_1_cSCKJANGQD7prAzWg').html('')
+  }
+  if(wasd!='' & wasd!='0' & wasd!=undefined && pere!='' & pere!='0' & pere!=undefined & acin!='' & acin!='0' & acin!=undefined & wfca!='' & wfca!='0' & wfca!=undefined ){
+    const note = $('#GvZni2SWBtnPLYfYM').val()
+    if(note=='' || note==undefined){
+      $('#error__GvZni2SWBtnPLYfYM').html('"Note" harus di isi')
+      savStat = 0
+    }else{
+      $('#error__GvZni2SWBtnPLYfYM').html('')
+    }
+  }else{
+    $('#error__GvZni2SWBtnPLYfYM').html('')
+    //savStat = 1
+  }
+  return savStat
+}
+
+// masukin no transaksi harus masukin amount receved dan date received
+function cekNotrans(){
+  let savStat = 1
+  const notran = $('#T23oJu5bHb8XqfMc7').val()
+  const dater  = $('#gsXBC5aKbe4Z6Fd7T').val()
+  const amore  = $('#cSCKJANGQD7prAzWg').val()
+  $('#error__T23oJu5bHb8XqfMc7').html('')
+  $('#error__gsXBC5aKbe4Z6Fd7T').html('')
+  $('#error_2_cSCKJANGQD7prAzWg').html('')
+  if(notran=='' & (dater!='' || amore!='')){
+    $('#error__T23oJu5bHb8XqfMc7').html('No Transaksi Harus di isi')
+    savStat = 0
+  }
+  if(dater=='' & (notran!='' || amore!='')){
+    $('#error__gsXBC5aKbe4Z6Fd7T').html('Date Received Harus di isi')
+    savStat = 0
+  }
+  if(amore=='' & (dater!='' || notran!='')){
+    $('#error_2_cSCKJANGQD7prAzWg').html('Amount received Harus di isi')
+    savStat = 0
+  }
+  return savStat
+}
 
 

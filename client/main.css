@@ -4,10 +4,29 @@ body {
 
 th {
   background-color: white;
+  font-size: 11px !important;
 }
 
 .sickies {
   background: white;
-  left: 0;
+  left: 80px;
   position: sticky;
+}
+
+.sickiese {
+  background: white;
+  left: 0px;
+  position: sticky;
+}
+
+tr {
+  font-size: 11px !important;
+}
+
+td {
+  font-size: 11px !important;
+}
+
+.table td, .table th {
+  padding: 0px !important;
 }

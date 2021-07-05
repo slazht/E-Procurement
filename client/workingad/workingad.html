@@ -20,14 +20,14 @@
 	                    		</div>
 	                    		<div class="card-body">
 	                                <div class="table-responsive">
-		                    			<table id="simpletable" class="table">
+		                    			<table id="simpletable" class="table table-bordered">
 		                    				<thead>
 		                    					<tr role="row">
 		                    						<th>No</th>
 		                    						{{#each kolomss}}
 		                    						<th class="sorting">{{name}}</th>
 		                    						{{/each}}
-		                    						<th class="notExporte">Actions</th>
+		                    						<th class="notExporte" style="min-width:100px;">Actions</th>
 		                    					</tr>
 		                    				</thead>
 		                    				<tbody>
@@ -37,10 +37,10 @@
 		                    						{{#each kol in kolomss}}
 		                    						<td style="min-width: 92px;">{{getValue kol._id kol.type val._id}}</td>
 		                    						{{/each}}
-		                    						<td class="notExporte">
-	                    								<a href="/workingadvance/edit/{{val._id}}" class="btn btn-success btn-sm">Edit</a>
+		                    						<td class="notExporte" style="min-width:100px;">
+	                    								<a href="/workingadvance/edit/{{val._id}}" class="btn btn-success btn-xs">Edit</a>
 	                    								{{#if isInRole 'admin,superadmin'}}
-	                    								<button id="{{val._id}}" class="deleteCategori btn btn-danger btn-sm">Delete</button>
+	                    								<button id="{{val._id}}" class="deleteCategori btn btn-danger btn-xs">Delete</button>
 	                    								{{/if}}
 	                    							</td>
 		                    					</tr>

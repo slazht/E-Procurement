@@ -11,6 +11,10 @@ Template.workingadvance.onCreated(function helloOnCreated() {
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
   Session.set('limit',200)
+  if($('.btn-minimize').hasClass('toggled')){
+  }else{
+    $('.btn-minimize').click()
+  }
 });
 
 Template.workingadvance.onRendered(function helloOnCreated() {
@@ -19,6 +23,10 @@ Template.workingadvance.onRendered(function helloOnCreated() {
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
   Session.set('limit',200)
+  if($('.btn-minimize').hasClass('toggled')){
+  }else{
+    $('.btn-minimize').click()
+  }
 });
 
 Template.workingadvance.helpers({
@@ -108,12 +116,12 @@ Template.workingadvance.events({
     FlowRouter.go('/procurement')
   },
   'click .clickable-row'(e){
-    if(e.currentTarget.classList){
-      if((e.currentTarget.classList.value).indexOf('deleteCategori')==-1){
+    if(e.target.classList){
+      if((e.target.classList.value).indexOf('deleteCategori')==-1){
         FlowRouter.go(e.currentTarget.dataset.href)
       }
     }else{
-      FlowRouter.go(e.currentTarget.dataset.href)
+      //FlowRouter.go(e.currentTarget.dataset.href)
     }
   },
   'click .exportXLS'(e){

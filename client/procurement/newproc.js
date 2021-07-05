@@ -12,6 +12,7 @@ Template.newprocurement.onCreated(function helloOnCreated() {
 	Session.set('kolomarray',[])
 	Session.set('countItems',1)
 	Session.set('activeitems',1)
+	Session.set('bolehSave',{})
 	const id = FlowRouter.getParam('id');
   	if(id){
   		Meteor.subscribe('Values',{_id:id},{})
@@ -138,6 +139,7 @@ Template.newprocurement.helpers({
 	  		result = vals[cid][parseInt(index)-1]
 	  	}
 	  	const col = Koloms.findOne({'_id':cid})
+	  	/*
 	  	if(col && col.formula!='' && col.formula!==undefined){
 	  		var formu = col.formula
 	  		cols = Koloms.find()
@@ -166,6 +168,7 @@ Template.newprocurement.helpers({
 	  		})
 	  		result = eval(formu)
 	  	}
+	  	*/
 	  	if(col && col.type=='number' && result==''){
 	  		result = 0
 	  	}
@@ -252,6 +255,7 @@ Template.newprocurement.events({
 		    	}else{
 		    		data[x._id] = [isi]
 		    	}
+		    	
 		  	})
     	}
     })
@@ -278,7 +282,46 @@ Template.newprocurement.events({
     	})
     }
   },
+  'change .form-control'(e){
+  	cekDeuDel() 
+  	nodblriarbl()
+  	daybetLrandRFq()
+  	daybetRFQandPO()
+  	daybetlRCandDelive()
+  	var saveStat = Session.get('bolehSave')
+  	let save = true
+  	Object.keys(saveStat).forEach(function(x){
+  		//console.log(saveStat[x])
+  		if(saveStat[x]==0){
+  			save=false
+  		}
+  	})
+  	//console.log(save)
+  	if(save){
+  		$('#saveStatus').prop('disabled',false)
+  	}else{
+  		$('#saveStatus').prop('disabled',true)
+  	}
+  },
   'keyup input'(e){
+  	cekDeuDel() 
+  	nodblriarbl()
+  	daybetLrandRFq()
+  	daybetRFQandPO()
+  	daybetlRCandDelive()
+  	var saveStat = Session.get('bolehSave')
+  	let save = true
+  	Object.keys(saveStat).forEach(function(x){
+  		if(saveStat[x]==0){
+  			save=false
+  		}
+  	})
+  	if(save){
+  		$('#saveStatus').prop('disabled',false)
+  	}else{
+  		$('#saveStatus').prop('disabled',true)
+  	}
+  	/*
   	$('#saveStatus').html('Not Saved')
   	const idd  = FlowRouter.getParam('id');
   	data = {}
@@ -305,7 +348,7 @@ Template.newprocurement.events({
   					}
 	  				if(c.type=='date' && tval!=''){
 	  					const date = new Date(tval);
-	  					const diffTime = Math.abs(date)  / (1000 * 60 * 60 * 24)
+	  					const diffTime = Math.abs(date) / (1000 * 60 * 60 * 24)
 						rule = rule.replace('{'+c._id+'}',diffTime)
 	  				}else{
 	  					rule = rule.replace('{'+c._id+'}',tval)
@@ -358,20 +401,29 @@ Template.newprocurement.events({
 		    			isi = 0
 		    		}
 		    	}
-		    	if(Array.isArray(data[x._id])){
-		    		data[x._id].push(isi)
-		    	}else{
-		    		data[x._id] = [isi]
+		    	let input = true
+		    	const ddel = $('#'+ind+'_BNsXAnnE5rMQbDt4p').val()
+		    	const cons = $('#'+ind+'_soiApe2xq3LqiBuhS').val()
+		    	if( (ddel!='' & cons=='') ||  (ddel=='' & cons!='')) {
+		    		input = false
 		    	}
-
+		    	if(input){
+			    	if(Array.isArray(data[x._id])){
+			    		data[x._id].push(isi)
+			    	}else{
+			    		data[x._id] = [isi]
+			    	}
+		    	}
 		  	})
     	}
     })
+    /*
     //console.log(data)
     if(idd===undefined){
     	data['createdBy'] = Meteor.userId()
     	data['createdAt'] = new Date()
     	data['type'] = 'proc'
+    	
     	Meteor.call('Values.insert',data,function(e,s){
     		if(e){
     			alert(e)
@@ -380,8 +432,10 @@ Template.newprocurement.events({
     			FlowRouter.go('/procurement/edit/'+s)
     		}
     	})
+    	
     }else{
     	data['type'] = 'proc'
+    	
     	Meteor.call('Values.update',idd,data,function(e,s){
     		if(e){
     			alert(e)
@@ -390,7 +444,9 @@ Template.newprocurement.events({
     			//FlowRouter.go('/procurement')
     		}
     	})
+    	
     }
+    */
   },
   'click .removeItem'(e){
   	console.log(e.target.id)
@@ -406,5 +462,104 @@ Template.newprocurement.events({
   	}
   }
 });
+
+// jik 'Due Dilligent Check/BNsXAnnE5rMQbDt4p' terisi maka 'PO/Contract number/soiApe2xq3LqiBuhS' harus diisi jika tidak, tdk bisa disave
+function cekDeuDel() {
+	//console.log('Po Kontrak Cek')
+	var savestat = Session.get('bolehSave')
+	list = 1
+	$('.items_area').each(function(){
+		var a = this.id
+		ind = a.split('_')[1]
+		const ddel = $('#'+ind+'_BNsXAnnE5rMQbDt4p').val()
+		const cons = $('#'+ind+'_soiApe2xq3LqiBuhS').val()
+		if( (ddel!='' & cons=='')) {
+			$('#error_'+ind+'_BNsXAnnE5rMQbDt4p').html('"PO/Contract" harus di isi')
+			$('#error_'+ind+'_soiApe2xq3LqiBuhS').html('"PO/Contract" harus di isi dulu')
+			$('#'+ind+'_soiApe2xq3LqiBuhS').val('')
+			list = 0
+		}
+		if (ddel=='' & cons!='') {
+			$('#error_'+ind+'_BNsXAnnE5rMQbDt4p').html('"Due Dilligent Check" harus di isi')
+			$('#error_'+ind+'_soiApe2xq3LqiBuhS').html('"Due Dilligent Check" harus di isi')
+			list = 0
+		}
+		if((ddel=='' & cons=='') || (ddel!='' & cons!='')) {
+			$('#error_'+ind+'_BNsXAnnE5rMQbDt4p').html('')
+			$('#error_'+ind+'_soiApe2xq3LqiBuhS').html('')
+		}
+	})
+	savestat['poKontrak'] = list
+	Session.set('bolehSave',savestat)
+}
+
+// Number of days between LR issued and received by Logs = LR received Date - LR Date
+function nodblriarbl(){
+	const recdate = $('#rPyaezWdwXWB4Xsxg').val()
+	const lrdate  = $('#ApeXHj9EjBNu5YCJm').val()
+	if(recdate!='' & lrdate!=''){
+		const nmrcdate = new Date(recdate);
+		const nmlrdate = new Date(lrdate);
+		const numrec = Math.abs(nmrcdate) / (1000 * 60 * 60 * 24)
+		const numlrd = Math.abs(nmlrdate) / (1000 * 60 * 60 * 24)
+		$('.items_area').each(function(){
+			var a = this.id
+			ind = a.split('_')[1]
+			$('#'+ind+'_Qpmu4p4N5ATnXsi4Y').val(parseInt(numrec)-parseInt(numlrd))
+		});
+	}
+}
+
+// Day between LR received by Logs until RFQ issued = RFQ Date - LR received Date
+function daybetLrandRFq(){
+	const recdate = $('#5F3CgrQfcADp2j58d').val()
+	const lrdate  = $('#rPyaezWdwXWB4Xsxg').val()
+	if(recdate!='' & lrdate!=''){
+		const nmrcdate = new Date(recdate);
+		const nmlrdate = new Date(lrdate);
+		const numrec = Math.abs(nmrcdate) / (1000 * 60 * 60 * 24)
+		const numlrd = Math.abs(nmlrdate) / (1000 * 60 * 60 * 24)
+		$('.items_area').each(function(){
+			var a = this.id
+			ind = a.split('_')[1]
+			$('#'+ind+'_s24YNpj2WfiDJZzb4').val(parseInt(numrec)-parseInt(numlrd))
+		});
+	}
+}
+
+//Days between RFQ until PO issued = PO Date/ Contract Period - RFQ Date
+function daybetRFQandPO(){
+	$('.items_area').each(function(){
+		var a = this.id
+		ind = a.split('_')[1]
+		const recdate = $('#'+ind+'_z88oWTrXMPkTdQgyR').val()
+		const lrdate  = $('#5F3CgrQfcADp2j58d').val()
+		if(recdate!='' & lrdate!=''){
+			const nmrcdate = new Date(recdate);
+			const nmlrdate = new Date(lrdate);
+			const numrec = Math.abs(nmrcdate) / (1000 * 60 * 60 * 24)
+			const numlrd = Math.abs(nmlrdate) / (1000 * 60 * 60 * 24)
+			$('#'+ind+'_xh9w8xiAJSvfDh4cN').val(parseInt(numrec)-parseInt(numlrd))
+		}
+	});
+}
+
+//Total number of days between LR received and Items delivered = Actual Delivery Date 1 - LR received Date
+function daybetlRCandDelive(){
+	$('.items_area').each(function(){
+		var a = this.id
+		ind = a.split('_')[1]
+		const recdate = $('#'+ind+'_JLQXgJSWXCaqXRWfE').val()
+		const lrdate  = $('#rPyaezWdwXWB4Xsxg').val()
+		if(recdate!='' & lrdate!=''){
+			const nmrcdate = new Date(recdate);
+			const nmlrdate = new Date(lrdate);
+			const numrec = Math.abs(nmrcdate) / (1000 * 60 * 60 * 24)
+			const numlrd = Math.abs(nmlrdate) / (1000 * 60 * 60 * 24)
+			$('#'+ind+'_YqAJrKpsi2svoHkgG').val(parseInt(numrec)-parseInt(numlrd))
+		}
+	});
+}
+
 
 

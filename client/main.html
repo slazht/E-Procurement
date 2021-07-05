@@ -22,12 +22,20 @@
 
   <script type="text/javascript">
     function createSticky(){
+      if($('.btn-minimize').hasClass('toggled')){
+      }else{
+        $('.btn-minimize').click()
+      }
+
       var $table = $('table');
       $table.floatThead({
           responsiveContainer: function($table){
               return $table.closest('.table-responsive');
           }
       });
+      //$table.css('height', 0);
+      //$('.floatThead-col').css('height',0)
+      //$('.size-row').css('height',0)
     }
   </script>
 

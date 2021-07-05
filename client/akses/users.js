@@ -60,6 +60,11 @@ Template.listUsers.events({
         $('#modalAddLicense').modal('hide')
       })
     }
+    $('#idd').val('')
+    $('#name').val('')
+    $('#email').val('')
+    $('#password').val('')
+    $('#priv').val('')
   },
   'click .deleteCategori'(){
   	cek =  confirm('Apakah Anda yakin akan menghapus data ini ?')
