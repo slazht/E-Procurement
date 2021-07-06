@@ -117,7 +117,7 @@
 						<li class="nav-item dropdown hidden-caret">
 							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
 								<div class="avatar-sm">
-									<img src="/user.png" alt="http://demo.themekita.com/azzara/livepreview." class="avatar-img rounded-circle">
+									<img src="{{photo.link}}" alt="photo" class="avatar-img rounded-circle">
 								</div>
 							</a>
 							<ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -125,13 +125,16 @@
 									<div class="user-box">
 										<div class="avatar-lg"><img src="/user.png" alt="image profile" class="avatar-img rounded"></div>
 										<div class="u-text">
-											<h4>{{userLogin.username}}</h4>
+											<h4>{{thenames}}</h4>
 											<p class="text-muted">{{#each userLogin.emails}} {{address}} {{/each}}</p>
 										</div>
 									</div>
 								</li>
 								<li>
 									<a id="changePass" class="dropdown-item">Change Password</a>
+								</li>
+								<li>
+									<a href="/profile" class="dropdown-item">Profile</a>
 								</li>
 								<li>
 									<a id="logout" class="dropdown-item" href="#">Logout</a>
@@ -152,12 +155,12 @@
 				<div class="sidebar-content">
 					<div class="user">
 						<div class="avatar-sm float-left mr-2">
-							<img src="/user.png" alt="" class="avatar-img rounded-circle">
+							<img src="{{photo.link}}" alt="" class="avatar-img rounded-circle">
 						</div>
 						<div class="info">
 							<a aria-expanded="true">
 								<span>
-									{{userLogin.username}}
+									{{thenames}}
 									<span class="user-level">{{priv}}</span>
 								</span>
 							</a>

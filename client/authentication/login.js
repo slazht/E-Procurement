@@ -57,7 +57,7 @@ Template.loginUser.events({
   			if (err){
   				alert(err.reason);
   			}
-        Meteor.call('addTokenCross','sfafwecwefaw');
+        //Meteor.call('addTokenCross','sfafwecwefaw');
         FlowRouter.go('home');
   		});
   		console.log('login');

@@ -91,6 +91,9 @@ if (Meteor.isServer) {
 	    'createWb'(html){
 	    	const wb = XLSX.read(html, { type: 'binary' });
 	    	return wb
+	    },
+	    'changeUsername'(username){
+	    	return Accounts.setUsername(Meteor.userId(), username)
 	    }
 	});
 

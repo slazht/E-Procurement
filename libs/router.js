@@ -12,6 +12,13 @@ FlowRouter.route( '/procurement', {
   }
 });
 
+FlowRouter.route( '/profile', {
+  name: 'profile',
+  action() {
+    BlazeLayout.render('layout', {main: 'profile'});
+  }
+});
+
 FlowRouter.route( '/procurement/newdata', {
   name: 'newprocurement',
   action() {

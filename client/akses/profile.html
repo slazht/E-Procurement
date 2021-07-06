@@ -1,0 +1,65 @@
+<template name="profile">
+    <div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div class="page-header">
+                    <h4 class="page-title">User Profile</h4>
+                    <div class="btn-group btn-group-page-header ml-auto">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                    	<div class="card">
+                    		<div class="card-header">
+                                Profile
+                    		</div>
+                    		<div class="card-body">
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label" for="exampleFormControlInput1">Photo</label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <input class="form-control" id="fileInput" type="file" value="">
+                                    </div>
+                                    <div>
+                                        <img style="width: 200px;" src="{{photo.link}}" />
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label" for="exampleFormControlInput1">Username</label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <input class="form-control" id="username" placeholder="grafana.coacom.org" type="text" value="{{userDetails.username}}">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label" for="exampleFormControlInput1">Email</label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <input class="form-control" disabled="" id="email" placeholder="a@a.com" type="text" value="{{theemail userDetails.emails}}">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label" for="exampleFormControlInput1">Nama Lengkap</label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <input class="form-control" id="namalengkap" type="text" value="{{userDetails.profile.name}}">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-control-label" for="exampleFormControlInput1">Privilege</label>
+                                    <div class="input-group input-group-merge input-group-alternative">
+                                        <input class="form-control" id="satker" disabled="" type="text" value="{{userRole}}">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <button class="btn btn-success pull-right" id="simpan">Save</button>
+                                </div>
+
+                    		</div>
+                    	</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
