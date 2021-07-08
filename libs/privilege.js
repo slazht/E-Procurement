@@ -14,7 +14,7 @@ if (Meteor.isServer) {
         }
         console.log(data)
         const pri = Privilege.insert(data);
-        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat privilege baru '+data.name,'dataId':pri,'createdAt':new Date()})
+        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat privilege baru '+data.name,'privilege':getPriv(),'dataId':pri,'createdAt':new Date()})
         return pri
     },
     'Privilege.update'(id,data){
@@ -30,7 +30,7 @@ if (Meteor.isServer) {
         }
         check(id,String);
         const dt = Privilege.findOne({_id:id})
-        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus privilege '+dt.name,'dataId':id,'createdAt':new Date()})
+        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus privilege '+dt.name,'privilege':getPriv(),'dataId':id,'createdAt':new Date()})
         Privilege.remove({_id:id});
       }
   });
@@ -39,5 +39,14 @@ if (Meteor.isServer) {
     console.log('subscribed Privilege');
     return Privilege.find(ops,par);
   });
+
+  function getPriv(){
+    //,'privilege':getPriv()
+    const priv = Meteor.users.findOne({_id:Meteor.userId()})
+    if(priv){
+      return priv.profile.privilege
+    }
+    return ''
+  }
   
 }

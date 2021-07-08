@@ -14,7 +14,7 @@ if (Meteor.isServer) {
         }
         console.log(data)
         const pil = Pilihan.insert(data);
-        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat pilihan baru '+data.name,'dataId':pil,'dataType':data.parent,'createdAt':new Date()})
+        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat pilihan baru '+data.name,'privilege':getPriv(),'dataId':pil,'dataType':data.parent,'createdAt':new Date()})
         return pil
     },
     'Pilihan.update'(id,data){
@@ -22,7 +22,7 @@ if (Meteor.isServer) {
           throw new Meteor.Error('access-denied', "Access denied")
         }
         check(id,String);
-        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Merubah pilihan '+data.name,'dataId':id,'dataType':data.parent,'createdAt':new Date()})
+        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Merubah pilihan '+data.name,'privilege':getPriv(),'dataId':id,'dataType':data.parent,'createdAt':new Date()})
         Pilihan.update({_id:id},{$set:data});
     },
     'Pilihan.delete'(id){
@@ -31,7 +31,7 @@ if (Meteor.isServer) {
         }
         check(id,String);
         const dt = Pilihan.findOne({_id:id})
-        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus pilihan '+dt.name,'dataId':id,'dataType':dt.parent,'createdAt':new Date()})
+        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus pilihan '+dt.name,'privilege':getPriv(),'dataId':id,'dataType':dt.parent,'createdAt':new Date()})
         Pilihan.remove({_id:id});
       }
   });
@@ -40,5 +40,14 @@ if (Meteor.isServer) {
     console.log('subscribed Pilihan');
     return Pilihan.find(ops,par);
   });
+
+  function getPriv(){
+    //,'privilege':getPriv()
+    const priv = Meteor.users.findOne({_id:Meteor.userId()})
+    if(priv){
+      return priv.profile.privilege
+    }
+    return ''
+  }
   
 }

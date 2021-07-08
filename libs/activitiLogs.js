@@ -14,6 +14,10 @@ if (Meteor.isServer) {
           throw new Meteor.Error('access-denied', "Access denied")
         }
         console.log(data)
+        const priv = Meteor.users.findOne({_id:Meteor.userId()})
+        if(priv){
+          data['privilege'] = priv.profile.privilege
+        }
         return ActivitiLogs.insert(data);
     },
   });

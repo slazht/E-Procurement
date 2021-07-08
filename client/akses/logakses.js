@@ -11,6 +11,12 @@ Template.logakses.onCreated(function helloOnCreated() {
 });
 
 Template.logakses.helpers({
+  prives(){
+  	const prives = Privilege.find()
+  	if(prives){
+  		return prives
+  	}
+  },
   privname(){
   	const user = Meteor.users.findOne({_id:this.userId})
   	if(user){
@@ -68,6 +74,7 @@ Template.logakses.events({
   	text = $('#text').val()
   	user = $('#user').val()
   	date = $('#datepike').val()
+  	role = $('#role').val()
   	if(text!=''){
   		filter['type'] = { '$regex': text, '$options': 'i' }
   	}
@@ -78,6 +85,9 @@ Template.logakses.events({
   	datel= date.split(' - ')[1]
   	if(date!=''){
   		filter['createdAt'] = { '$lte': new Date(datel), '$gte': new Date(datef) }
+  	}
+  	if(role!=''){
+  		filter['privilege'] = role
   	}
   	//filter = {userId:user,createdAt:{ '$lte': new Date(datel), '$gte': new Date(datef) },text:text}
   	console.log(filter)

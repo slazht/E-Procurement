@@ -14,7 +14,7 @@ if (Meteor.isServer) {
         }
         console.log(data)
         const nedata = Values.insert(data);
-        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','dataId':nedata,'dataType':data.type,'createdAt':new Date()})
+        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'dataType':data.type,'createdAt':new Date()})
         return nedata
     },
     'Values.update'(id,data){
@@ -23,9 +23,9 @@ if (Meteor.isServer) {
         }
         check(id,String);
         if(data.type=='woad'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','dataId':id,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'createdAt':new Date()})
         }else{
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','dataId':id,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'createdAt':new Date()})
         }
         return Values.update({_id:id},{$set:data});
     },
@@ -36,9 +36,9 @@ if (Meteor.isServer) {
         check(id,String);
         const da = Values.findOne({_id:id})
         if(da.type=='proc'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','dataId':da,'dataType':da.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'dataType':da.type,'createdAt':new Date()})
         }else{
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','dataId':da,'dataType':da.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'dataType':da.type,'createdAt':new Date()})
         }
         Values.remove({_id:id});
       },
@@ -68,4 +68,12 @@ if (Meteor.isServer) {
     return Values.find(ops,par);
   });
   
+  function getPriv(){
+    //,'privilege':getPriv()
+    const priv = Meteor.users.findOne({_id:Meteor.userId()})
+    if(priv){
+      return priv.profile.privilege
+    }
+    return ''
+  }
 }
