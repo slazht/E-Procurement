@@ -14,7 +14,11 @@ if (Meteor.isServer) {
         }
         console.log(data)
         const nedata = Values.insert(data);
-        ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'dataType':data.type,'createdAt':new Date()})
+        if(data.type=='woad'){
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'createdAt':new Date()})
+        }else{
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'createdAt':new Date()})
+        }
         return nedata
     },
     'Values.update'(id,data){
@@ -36,9 +40,9 @@ if (Meteor.isServer) {
         check(id,String);
         const da = Values.findOne({_id:id})
         if(da.type=='proc'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'dataType':da.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['ucScBqzoofEuc38RT'],'dataType':da.type,'createdAt':new Date()})
         }else{
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'dataType':da.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['Z568J675xXrZDZwtR'],'dataType':da.type,'createdAt':new Date()})
         }
         Values.remove({_id:id});
       },

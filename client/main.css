@@ -36,3 +36,11 @@ td {
 .table td, .table th {
   padding: 0px !important;
 }
+
+.size-row{
+  height: 50px !important;
+}
+
+.floatThead-col {
+  height: 50px !important;
+}
