@@ -30,6 +30,15 @@ Template.workingadvance.onRendered(function helloOnCreated() {
 });
 
 Template.workingadvance.helpers({
+  kanankiri(kol){
+    const data = Koloms.findOne({'_id':kol})
+    if(data){
+      if(data.type=='number'){
+        return 'right'
+      }
+    }
+    return 'left'
+  },
   selectKoloms(){
     data = Koloms.find({'data':'woad','type':'select'},{sort:{nomor:1}})
     if(data){

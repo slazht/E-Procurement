@@ -40,6 +40,15 @@ Template.procurement.helpers({
       return '65px'
     }
   },
+  kanankiri(kol){
+    const data = Koloms.findOne({'_id':kol})
+    if(data){
+      if(data.type=='number'){
+        return 'right'
+      }
+    }
+    return 'left'
+  },
   selectKoloms(){
     data = Koloms.find({'data':'proc','type':'select'},{sort:{nomor:1}})
     if(data){
@@ -198,6 +207,9 @@ Template.procurement.helpers({
       }
     }
     if(val){
+      if(kols.type=='number'){
+          return Number((val[kolId]).toFixed(1)).toLocaleString()
+      }
       return val[kolId]
     }
   },
