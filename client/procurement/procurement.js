@@ -103,7 +103,6 @@ Template.procurement.helpers({
           */
           v = Pilihan.findOne({_id:vale[kol][0]})
           if(v){
-
              result =  v.name 
           }
           //console.log(result)
@@ -213,6 +212,9 @@ Template.procurement.helpers({
     }
     if(kol=='ucScBqzoofEuc38RT'){
       return 'sickiese'
+    }
+    if(kol=='ZZXBoMgpJWcCYwdXt'){
+      return 'sickiesactivity'
     }
     return ''
   }

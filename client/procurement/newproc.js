@@ -186,6 +186,7 @@ Template.newprocurement.helpers({
   	return ''
   },
   aisSelected(kol,val,item){
+  	numberInkoma()
   	const id = FlowRouter.getParam('id');
   	vals = Values.findOne({_id:id})
   	if(vals){
@@ -230,6 +231,7 @@ Template.newprocurement.events({
     	if(x.format!='array'){
 	    	isi = $('#'+x._id).val()
 	    	if(x.type=='number'){
+	    		isi = isi.replace(/^(-)|[^0-9]+/g, '$1');
 	    		isi = parseInt(isi)
 	    		if(isNaN(isi)){
 	    			isi = 0
@@ -245,6 +247,7 @@ Template.newprocurement.events({
     			ind = a.split('_')[1]
 		  		isi = $('#'+ind+'_'+x._id).val()
 		    	if(x.type=='number'){
+		    		isi = isi.replace(/^(-)|[^0-9]+/g, '$1');
 		    		isi = parseInt(isi)
 		    		if(isNaN(isi)){
 		    			isi = 0
@@ -288,6 +291,8 @@ Template.newprocurement.events({
   	daybetLrandRFq()
   	daybetRFQandPO()
   	daybetlRCandDelive()
+  	kapitalisasi()
+  	numberInkoma()
   	var saveStat = Session.get('bolehSave')
   	let save = true
   	Object.keys(saveStat).forEach(function(x){
@@ -309,6 +314,8 @@ Template.newprocurement.events({
   	daybetLrandRFq()
   	daybetRFQandPO()
   	daybetlRCandDelive()
+  	kapitalisasi()
+  	numberInkoma()
   	var saveStat = Session.get('bolehSave')
   	let save = true
   	Object.keys(saveStat).forEach(function(x){
@@ -559,6 +566,43 @@ function daybetlRCandDelive(){
 			$('#'+ind+'_YqAJrKpsi2svoHkgG').val(parseInt(numrec)-parseInt(numlrd))
 		}
 	});
+}
+
+function kapitalisasi() {
+	const fields = ['N5jfuhZdzDHmFtNCW','ZZXBoMgpJWcCYwdXt','u7TMwHGwWHaHbYCqu']
+	fields.forEach(function(x){
+		const va = $('#'+x).val()
+		$('#'+x).val(va.toUpperCase())
+	});
+}
+
+function numberInkoma(){
+	const numbers = Koloms.find({'type':'number','data':'proc'})
+	numbers.forEach(function(x){
+		if(x.format!='array'){
+			var va = $('#'+x._id).val()
+			if(va!='' && va!=undefined){
+				const data = valNumberkoma(va,x._id)
+				$('#'+x._id).val(data)
+			}
+		}else{
+			$('.items_area').each(function(){
+				var a = this.id
+				ind = a.split('_')[1]
+				var va = $('#'+ind+'_'+x._id).val()
+				if(va!='' && va!=undefined){
+					const data = valNumberkoma(va,x._id)
+					$('#'+ind+'_'+x._id).val(data)
+				}
+			})
+		}
+	})
+}
+
+function valNumberkoma(va,x){
+	va = va.replace(/^(-)|[^0-9]+/g, '$1');
+	va = Number(parseInt(va).toFixed(1)).toLocaleString()
+	return va
 }
 
 

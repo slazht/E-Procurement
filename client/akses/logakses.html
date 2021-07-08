@@ -1,0 +1,84 @@
+<template name="logakses">
+    {{datePiker}}
+	<div class="main-panel">
+        <div class="content">
+            <div class="page-inner">
+                <div class="page-header">
+                    <h4 class="page-title">Log Akses</h4>
+                    <div class="btn-group btn-group-page-header ml-auto">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    	<div class="col-md-12">
+	                    	<div class="card">
+	                    		<div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-control-label" for="exampleFormControlInput1">Text</label>
+                                                <input class="form-control" id="text" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-control-label" for="exampleFormControlInput1">Users</label>
+                                                <select class="form-control" id="user">
+                                                    {{#each userlist}}
+                                                    <option value="{{_id}}">{{username}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-control-label" for="exampleFormControlInput1">Date</label>
+                                                <input class="form-control" id="datepike" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group mb-3">
+                                                <label class="form-control-label" for="exampleFormControlInput1">Apply</label>
+                                                <button class="btn btn-secondary btn-block" id="filter">Filter</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+	                    		</div>
+	                    		<div class="card-body">
+	                                
+	                    			<table id="simpletable" class="table">
+	                    				<thead>
+	                    					<tr role="row">
+	                    						<th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">NO</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">Date</th>
+                                                <th class="sorting">Role</th>
+	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Name</th>
+	                    						<th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Aktifitas</th>
+                                                <th class="sorting" tabindex="0" aria-controls="simpletable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending">Target Data</th>
+	                    					</tr>
+	                    				</thead>
+	                    				<tbody>
+	                    					{{#each aktifiti}}
+	                    					<tr role="row" class="odd">
+	                    						<td class="sorting_1">{{numbering @index}}</td>
+	                    						<td>{{thetanggal}}</td>
+                                                <td>{{privname}}</td>
+                                                <td>{{cekname}}</td>
+	                    						<td>{{type}}</td>
+                                                <td>{{data}}</td>
+	                    					</tr>
+	                                        {{/each}}
+	                    				</tbody>
+	                    			</table>
+
+	                    		</div>
+	                    	</div>
+	                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

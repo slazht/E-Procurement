@@ -9,13 +9,19 @@ th {
 
 .sickies {
   background: white;
-  left: 80px;
+  left: 65px;
   position: sticky;
 }
 
 .sickiese {
   background: white;
   left: 0px;
+  position: sticky;
+}
+
+.sickiesactivity {
+  background: white;
+  left: 230px;
   position: sticky;
 }
 

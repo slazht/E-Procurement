@@ -1,6 +1,8 @@
 import { Meteor } from 'meteor/meteor'
 import XLSX from 'xlsx';
 
+import { ActivitiLogs } from '../libs/activitiLogs.js';
+
 if (Meteor.isServer) {
 	Meteor.methods({
 	    'akunCekemail'(email) {
@@ -58,6 +60,7 @@ if (Meteor.isServer) {
       		this.unblock();
 	        console.log(data)
 	      	abc = Accounts.createUser(data);
+	      	ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat user baru','data':abc,'createdAt':new Date()})
 	      	//Meteor.users.update({_id:abc},{'$set':{'emails.0.verified':true,'profile.privilege':data.priv}})
 	      	//Roles.addUsersToRoles(abc, data.priv, Roles.GLOBAL_GROUP);
 	      	Roles.addUsersToRoles(abc, 'user', null);
@@ -75,6 +78,7 @@ if (Meteor.isServer) {
 	        	Accounts.setPassword(data.id, data.password)
 	      	}
 	      	if(data.privilege){
+	      		ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengubah privilege user','data':data.id,'createdAt':new Date()})
 	      		Meteor.users.update({_id:data.id},{'$set':{'profile.privilege':data.privilege}})
 	      	}
 	      	//if (Meteor.userId() && Roles.userIsInRole(Meteor.userId(), ['superadmin','admin'])) {
@@ -85,6 +89,8 @@ if (Meteor.isServer) {
 	    },
 	    'removeUser'(data) {
 	    	this.unblock();
+	    	const dt = Meteor.users.findOne({_id:data})
+	    	ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus user '+dt.username,'data':data,'createdAt':new Date()})
 	      	//console.log(data)
 	      	Meteor.users.remove(data);
 	    },
@@ -93,6 +99,7 @@ if (Meteor.isServer) {
 	    	return wb
 	    },
 	    'changeUsername'(username){
+	    	ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Merubah username','createdAt':new Date()})
 	    	return Accounts.setUsername(Meteor.userId(), username)
 	    }
 	});

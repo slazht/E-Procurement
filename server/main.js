@@ -8,6 +8,7 @@ import '../libs/privilege.js'
 import '../libs/akses.js'
 import '../libs/values.js'
 import '../libs/files.js'
+import '../libs/activitiLogs.js'
 
 import { Privilege } from '../libs/privilege.js';
 

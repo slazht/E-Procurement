@@ -117,6 +117,13 @@ FlowRouter.route( '/akses/users', {
   }
 });
 
+FlowRouter.route( '/akses/logs', {
+  name: 'logakses',
+  action() {
+    BlazeLayout.render('layout', {main: 'logakses'});
+  }
+});
+
 
 FlowRouter.route( '/reset-password/:_id', {
   action: function() {
@@ -141,7 +148,6 @@ FlowRouter.route( '/login', {
   },
   name: 'loginpage' 
 });
-
 
 
 

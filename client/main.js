@@ -69,6 +69,7 @@ Template.layout.helpers({
 
 Template.layout.events({
   'click #logout'(){
+    Meteor.call('ActivitiLogs.insert',{'userId':Meteor.userId(),'type':'logout','createdAt':new Date()});
     Meteor.logout();
     FlowRouter.go('/login');
   },

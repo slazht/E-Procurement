@@ -2,6 +2,8 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { Accounts } from 'meteor/accounts-base';
 
+import { ActivitiLogs } from '../../libs/activitiLogs.js';
+
 import './login.html';
 import './register.html';
 
@@ -55,9 +57,10 @@ Template.loginUser.events({
   		event.preventDefault();
   		Meteor.loginWithPassword(event.target.email.value, event.target.password.value, function(err,result){
   			if (err){
+          Meteor.call('ActivitiLogs.insert',{'userId':Meteor.userId(),'type':'Gagal Melakukan login','createdAt':new Date()});
   				alert(err.reason);
   			}
-        //Meteor.call('addTokenCross','sfafwecwefaw');
+        Meteor.call('ActivitiLogs.insert',{'userId':Meteor.userId(),'type':'Berhasil Login','createdAt':new Date()});
         FlowRouter.go('home');
   		});
   		console.log('login');
