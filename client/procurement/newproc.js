@@ -96,7 +96,7 @@ Template.newprocurement.helpers({
   	return false
   },
   pilihan(col){
-  	pils = Pilihan.find({parent:col})
+  	pils = Pilihan.find({parent:col},{sort:{name:1}})
   	if(pils){
   		return pils
   	}
@@ -271,7 +271,11 @@ Template.newprocurement.events({
     		if(e){
     			alert(e)
     		}else{
-    			FlowRouter.go('/procurement')
+    			if(s!='Duplicate File Reference Number'){
+    				FlowRouter.go('/procurement')
+    			}else{
+    				alert(s)
+    			}
     		}
     	})
     }else{
@@ -280,7 +284,11 @@ Template.newprocurement.events({
     		if(e){
     			alert(e)
     		}else{
-    			FlowRouter.go('/procurement')
+    			if(s!='Duplicate File Reference Number'){
+    				FlowRouter.go('/procurement')
+    			}else{
+    				alert(s)
+    			}
     		}
     	})
     }
@@ -293,6 +301,7 @@ Template.newprocurement.events({
   	daybetlRCandDelive()
   	kapitalisasi()
   	numberInkoma()
+  	cekStatus()
   	var saveStat = Session.get('bolehSave')
   	let save = true
   	Object.keys(saveStat).forEach(function(x){
@@ -316,6 +325,7 @@ Template.newprocurement.events({
   	daybetlRCandDelive()
   	kapitalisasi()
   	numberInkoma()
+  	cekStatus()
   	var saveStat = Session.get('bolehSave')
   	let save = true
   	Object.keys(saveStat).forEach(function(x){
@@ -572,7 +582,9 @@ function kapitalisasi() {
 	const fields = ['N5jfuhZdzDHmFtNCW','ZZXBoMgpJWcCYwdXt','u7TMwHGwWHaHbYCqu']
 	fields.forEach(function(x){
 		const va = $('#'+x).val()
-		$('#'+x).val(va.toUpperCase())
+		if(va!='' && va!=undefined){
+			$('#'+x).val(va.toUpperCase())
+		}
 	});
 }
 
@@ -603,6 +615,43 @@ function valNumberkoma(va,x){
 	va = va.replace(/^(-)|[^0-9]+/g, '$1');
 	va = Number(parseInt(va).toFixed(1)).toLocaleString()
 	return va
+}
+
+function cekStatus(){
+	//console.log('cekStatus')
+	const status = $('#mKbKXsbSoQNSWW2SX').val()
+	if(status=='LiaMXsEKdv2xf98yA'){
+		const koloms = Koloms.find({'data':'proc'})
+		var datas = ''
+		koloms.forEach(function(x){
+			if(x.format!='array'){
+				var va = $('#'+x._id).val()
+				if(va=='' || va==undefined){
+					console.log('masuk')
+					$('#mKbKXsbSoQNSWW2SX').val('F5g3J63Rhr3jvvigJ')
+					$('#error__mKbKXsbSoQNSWW2SX').html('Semua data harus terisi agar status bisa Complete')
+					//alert(x.name+ ' belum diisi')
+					datas = datas+' '+ x.name
+					return
+				}
+			}else{
+				$('.items_area').each(function(){
+					var a = this.id
+					ind = a.split('_')[1]
+					var va = $('#'+ind+'_'+x._id).val()
+					if(va=='' || va==undefined){
+						console.log('masuk')
+						$('#mKbKXsbSoQNSWW2SX').val('F5g3J63Rhr3jvvigJ')
+						$('#error__mKbKXsbSoQNSWW2SX').html('Semua data harus terisi agar status bisa Complete')
+						//alert(x.name+ ' belum diisi')
+						datas = datas+' '+ x.name
+						return
+					}
+				})
+			}
+		})
+		alert('Kolom '+datas+' belum diisi')
+	}
 }
 
 

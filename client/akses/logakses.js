@@ -76,7 +76,9 @@ Template.logakses.events({
   	date = $('#datepike').val()
   	role = $('#role').val()
   	if(text!=''){
-  		filter['type'] = { '$regex': text, '$options': 'i' }
+  		filter['$or'] = [{'type':{ '$regex': text, '$options': 'i' }},{'data':{ '$regex': text, '$options': 'i' }}]
+  		//filter['type'] = { '$regex': text, '$options': 'i' }
+  		//filter['data'] = { '$regex': text, '$options': 'i' }
   	}
   	if(user!=''){
   		filter['userId'] = user

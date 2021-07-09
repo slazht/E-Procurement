@@ -18,7 +18,7 @@ Template.pilihan.onRendered(function helloOnCreated() {
 Template.pilihan.helpers({
   pilihans() {
     const id = FlowRouter.getParam('id');
-  	data = Pilihan.find({parent:id},{sort:{'createdAt':-1}})
+  	data = Pilihan.find({parent:id},{sort:{'name':-1}})
     if(data){
     	return data
     }

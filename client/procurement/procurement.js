@@ -34,13 +34,13 @@ Template.procurement.helpers({
     if(id=='HB6nds6xKNY9nB8KG' || id=='ucScBqzoofEuc38RT' || id=='rPyaezWdwXWB4Xsxg' || id=='BNsXAnnE5rMQbDt4p' || id=='z88oWTrXMPkTdQgyR' || id=='Eyi4s5Tnmbn9QXp6Z' || id=='JLQXgJSWXCaqXRWfE' || id=='AhuMcJpyY844PWXP2' || id=="zQnkKLn5QmRuZJu75"){
       return '100px'
     }
-    if(id=='4o2Kxt6Hbi2DgxTkg' || id=='Qpmu4p4N5ATnXsi4Y' || id=='s24YNpj2WfiDJZzb4' || id=='xh9w8xiAJSvfDh4cN' || id=='YqAJrKpsi2svoHkgG'){
+    if(id=='Qpmu4p4N5ATnXsi4Y' || id=='s24YNpj2WfiDJZzb4' || id=='xh9w8xiAJSvfDh4cN' || id=='YqAJrKpsi2svoHkgG'){
       return '130px'
     }
     if(id=='rPyaezWdwXWB4Xsxg' || id=='d7eYC6PpEs7KNnZ8R' || id=='soiApe2xq3LqiBuhS' ){
       return '80px'
     }
-    if(id=="3rEt3S5Sp5DN5ct46"){
+    if(id=="3rEt3S5Sp5DN5ct46" || id=='4o2Kxt6Hbi2DgxTkg'){
       return '165px'
     }else{
       return '65px'

@@ -24,6 +24,7 @@
                                             <div class="form-group mb-3">
                                                 <label class="form-control-label" for="exampleFormControlInput1">Role</label>
                                                 <select class="form-control" id="role">
+                                                    <option value="">All</option>
                                                     {{#each prives}}
                                                     <option value="{{_id}}">{{name}}</option>
                                                     {{/each}}
@@ -34,6 +35,7 @@
                                             <div class="form-group mb-3">
                                                 <label class="form-control-label" for="exampleFormControlInput1">Users</label>
                                                 <select class="form-control" id="user">
+                                                    <option value="">All</option>
                                                     {{#each userlist}}
                                                     <option value="{{_id}}">{{username}}</option>
                                                     {{/each}}

@@ -13,11 +13,17 @@ if (Meteor.isServer) {
           throw new Meteor.Error('access-denied', "Access denied")
         }
         console.log(data)
+        if(data.type=='proc' & data['ucScBqzoofEuc38RT']!=''){
+          const cek = Values.find({'ucScBqzoofEuc38RT':data['ucScBqzoofEuc38RT']})
+          if(cek.count()>0){
+            return 'Duplicate File Reference Number'
+          }
+        }
         const nedata = Values.insert(data);
         if(data.type=='woad'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }else{
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }
         return nedata
     },
@@ -27,9 +33,9 @@ if (Meteor.isServer) {
         }
         check(id,String);
         if(data.type=='woad'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }else{
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }
         return Values.update({_id:id},{$set:data});
     },
@@ -40,9 +46,9 @@ if (Meteor.isServer) {
         check(id,String);
         const da = Values.findOne({_id:id})
         if(da.type=='proc'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['ucScBqzoofEuc38RT'],'dataType':da.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['ucScBqzoofEuc38RT'],'dataType':da.type,'raw':data,'createdAt':new Date()})
         }else{
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['Z568J675xXrZDZwtR'],'dataType':da.type,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['Z568J675xXrZDZwtR'],'dataType':da.type,'raw':data,'createdAt':new Date()})
         }
         Values.remove({_id:id});
       },
