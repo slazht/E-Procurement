@@ -75,6 +75,7 @@ if (Meteor.isServer) {
 	    	this.unblock();
 	      	console.log(data)
 	      	if(data.password!=''){
+	      		ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengubah password user','data':data.id,'createdAt':new Date()})
 	        	Accounts.setPassword(data.id, data.password)
 	      	}
 	      	if(data.privilege){

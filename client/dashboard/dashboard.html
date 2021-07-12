@@ -67,32 +67,32 @@
 						</div>
 					</div>
 
-					<div class="col-md-7">
+					<div class="col-md-5">
 						<div class="card">
 							<div class="card-header">
 								<div class="card-title">Procurement Status</div>
 							</div>
 							<div class="card-body">
 								<div class="chart-container">
-									<canvas id="pieChart" style="width: 50%; height: 50%"></canvas>
+									<canvas id="pieCharta" style="width: 50%; height: 50%"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-md-5">
+					<div class="col-md-7">
 						<div class="card" style="padding-bottom: 33px;">
 							<div class="card-header">
-								<div class="card-title">Top Department</div>
+								<div class="card-title">My Task</div>
 							</div>
 							<div class="card-body pb-0">
-								{{#each totalData.department}}
+								{{#each theTask}}
 								<div class="d-flex">
 									<div class="flex-1 pt-1 ml-2">
-										<h5 class="fw-bold mb-1">{{cekName _id}}</h5>
+										<h5 class="fw-bold mb-1">Data perlu dilengkapi </h5>
 									</div>
 									<div class="d-flex ml-auto align-items-center">
-										<h3 class="text-info fw-bold">{{count}}</h3>
+										<h3 class="text-info fw-bold"><a href='/procurement/edit/{{id}}' >{{ref}}</a></h3>
 									</div>
 								</div>
 								<div class="separator-dashed"></div>

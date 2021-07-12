@@ -159,6 +159,8 @@ function authenticated() {
     }
 }
 
+FlowRouter.triggers.enter([onlyAdmin], {only: ["users","privilege"]});
+
 function authenticated2() {
   setTimeout(function() {
     if (Meteor.userId() && Roles.userIsInRole(Meteor.userId(), ['superadmin','admin','student'], Roles.GLOBAL_GROUP)) {

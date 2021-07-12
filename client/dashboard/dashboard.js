@@ -13,9 +13,19 @@ Template.dashbord.onCreated(function helloOnCreated() {
   Meteor.call('totalData',function(e,s){
   	Session.set('totalData',s)
   })
+  Meteor.call('getTask', function(e,s){
+  	//console.log(s)
+  	Session.set('task',s)
+  })
 });
 
 Template.dashbord.helpers({
+  theTask() {
+  	const tak = Session.get('task')
+  	if(tak){
+  		return tak
+  	}
+  },
   counter() {
     return Template.instance().counter.get();
   },
@@ -31,14 +41,22 @@ Template.dashbord.helpers({
   	if(data){
   		var labels   = []
   		var isinya   = []
+  		var total    = 0
   		var status = data.status 
   		status.forEach(function(x){
   			stat = Pilihan.findOne({_id:x._id})
   			if(stat){
   				labels.push(stat.name)
-  				isinya.push(x.count)
+  				//isinya.push(x.count)
+  				total = total + parseInt(x.count)
+  				isinya.push((100/parseInt(data.proc)*parseInt(x.count)).toFixed(1))
   			}
   		})
+  		if(parseInt(data.proc)-total>0){
+  			labels.push('Unset')
+  			const cu = parseInt(data.proc)-total
+  			isinya.push((100/parseInt(data.proc)*parseInt(cu)).toFixed(1))
+  		}
   		//console.log(labels)
   		//console.log(isinya)
   		setTimeout(function() {
@@ -61,57 +79,32 @@ Template.dashbord.helpers({
 });
 
 function createPieChat(labels,isinya){
-	$('.chart-container').html('<canvas id="pieChart" style="width: 50%; height: 50%"></canvas>')
-	var myPieChart = new Chart(pieChart, {
+	$('.chart-container').html('<canvas id="pieCharta" style="width: 50%; height: 50%"></canvas>')
+	pieCharta = document.getElementById('pieCharta').getContext('2d')
+	var myPieChart = new Chart(pieCharta, {
 		type: 'pie',
-		data: {
-			datasets: [{
-				data: isinya,
-				backgroundColor :["#1d7af3","#f3545d","#fdaf4b","#fdafaa"],
-				borderWidth: 0
-			}],
-			labels: labels
-		},
-		options : {
-			responsive: true, 
-			maintainAspectRatio: false,
-			legend: {
-				position : 'bottom',
-				labels : {
-					fontColor: 'rgb(154, 154, 154)',
-					fontSize: 11,
-					usePointStyle : true,
-					padding: 20
-				}
+			data: {
+				datasets: [{
+					data: isinya,
+					backgroundColor :["#1d7af3","#f3545d","#fdaf4b"],
+					borderWidth: 0
+				}],
+				labels: labels 
 			},
-			pieceLabel: {
-				render: 'percentage',
-				fontColor: 'white',
-				fontSize: 14,
-			},
-			tooltips: false,
-			layout: {
-				padding: {
-					left: 20,
-					right: 20,
-					top: 20,
-					bottom: 20
-				}
-			},
-			plugins: {
-        datalabels: {
-            formatter: (value, ctx) => {
-                let sum = 0;
-                let dataArr = ctx.chart.data.datasets[0].data;
-                dataArr.map(data => {
-                    sum += data;
-                });
-                let percentage = (value*100 / sum).toFixed(2)+"%";
-                return percentage;
-            },
-            color: '#fff',
-        }
-    	}
-		}
+			options : {
+	            tooltips: {
+	                mode: 'label',
+	                callbacks: {
+	                    label: function(tooltipItem, data) {
+	                        return data['datasets'][0]['data'][tooltipItem['index']] + '%';
+	                    }
+	                }
+	            },
+		          scale: {
+		            ticks: {
+		                beginAtZero: true
+		            }
+		        }
+		    }
 	})
 }
