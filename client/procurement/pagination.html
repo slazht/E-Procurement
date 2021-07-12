@@ -1,0 +1,17 @@
+<template name="pagination">
+	<div class="pagin" style="padding-top: 15px;">
+		<nav aria-label="...">
+		  <ul class="pagination justify-content-center">
+		    <li class="page-item">
+		      <a class="page-link" >&laquo;</a>
+		    </li>
+		    {{#each cekData}}
+		    <li class="page-item {{isAktif this}}"><a class="page-link pagination" id="page_{{.}}">{{.}}</a></li>
+		    {{/each}}
+		    <li class="page-item">
+		      <a class="page-link" >&raquo;</a>
+		    </li>
+		  </ul>
+		</nav>
+	</div>
+</template>

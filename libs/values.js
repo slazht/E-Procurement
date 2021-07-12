@@ -89,6 +89,9 @@ if (Meteor.isServer) {
         data.push({id:s._id,ref:s.ucScBqzoofEuc38RT})
       })
       return data
+    },
+    'valuesCount'(par,ops){
+      return Values.find(par,ops).count();
     }
   });
 

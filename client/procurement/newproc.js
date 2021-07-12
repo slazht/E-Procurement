@@ -17,6 +17,9 @@ Template.newprocurement.onCreated(function helloOnCreated() {
   	if(id){
   		Meteor.subscribe('Values',{_id:id},{})
   	}
+  setTimeout(function() {
+		numberInkoma()
+  }, 1500);
 });
 
 Template.newprocurement.helpers({

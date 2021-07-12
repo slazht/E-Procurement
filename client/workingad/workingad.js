@@ -6,11 +6,13 @@ import { Pilihan } from '../../libs/pilihan.js';
 import XLSX from 'xlsx';
 
 Template.workingadvance.onCreated(function helloOnCreated() {
+  limit = 30
+  Session.set('limit',limit)
+  Session.set('aktif',1)
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:200})
+  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:limit})
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
-  Session.set('limit',200)
   if($('.btn-minimize').hasClass('toggled')){
   }else{
     $('.btn-minimize').click()
@@ -18,11 +20,13 @@ Template.workingadvance.onCreated(function helloOnCreated() {
 });
 
 Template.workingadvance.onRendered(function helloOnCreated() {
+  limit = 30
+  Session.set('limit',limit)
+  Session.set('aktif',1)
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:200})
+  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:limit})
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
-  Session.set('limit',200)
   if($('.btn-minimize').hasClass('toggled')){
   }else{
     $('.btn-minimize').click()
@@ -30,6 +34,41 @@ Template.workingadvance.onRendered(function helloOnCreated() {
 });
 
 Template.workingadvance.helpers({
+  numbering2(inde){
+    const lim = Session.get('limit')
+    const aktif = Session.get('aktif')
+    skip = parseInt(limit)*(parseInt(aktif)-1)
+    return skip+inde+1
+  },
+  reloadSubscribe(){
+    var par = {type:'proc'}
+    var lim = Session.get('limit')
+    const limit = Session.get('limit')
+    var filters = Session.get('filter')
+    const aktif = Session.get('aktif')
+    skip = parseInt(limit)*(parseInt(aktif)-1)
+    if(filters){
+      par = filters
+      par['type'] = 'woad'
+    }
+    if(lim){
+      lim = lim + skip
+      Meteor.subscribe('Values',par,{sort:{'createdAt':-1},limit:lim})
+    }
+  },
+  coundData(){
+    var par = {type:'woad'}
+    const filter = Session.get('filter')
+    if(filter){
+      par = filter
+      par['type'] = 'woad'
+    }
+    console.log(par)
+    Meteor.call('valuesCount',par,{},function(e,s){
+      console.log(s)
+      Session.set('valwoad',s)
+    })
+  },
   kanankiri(kol){
     const data = Koloms.findOne({'_id':kol})
     if(data){
@@ -60,9 +99,12 @@ Template.workingadvance.helpers({
   value(){
     const limit = Session.get('limit')
     var filters = Session.get('filter')
+    const aktif = Session.get('aktif')
+    skip = parseInt(limit)*(parseInt(aktif)-1)
+    var filters = Session.get('filter')
     filters['type'] = 'woad'
     //console.log(filters)
-    data = Values.find(filters,{sort:{'createdAt':-1},limit:parseInt(limit)})
+    data = Values.find(filters,{sort:{'createdAt':-1},limit:parseInt(limit),skip:skip})
     if(data){
       return data
     }
@@ -155,10 +197,10 @@ Template.workingadvance.events({
         //console.log(fil)
       }
       $('#filterModal').modal('hide')
-      const limit = $('#amount').val()
+      //const limit = $('#amount').val()
       //console.log(limit)
-      Session.set('limit',parseInt(limit))
-      Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:parseInt(limit)})
+      //Session.set('limit',parseInt(limit))
+      //Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:parseInt(limit)})
   }
 });
 

@@ -103,6 +103,7 @@ Template.newwoad.events({
     kols.forEach(function(x){
     	isi = $('#'+x._id).val()
     	if(x.type=='number'){
+        isi = isi.replace(/^(-)|[^0-9]+/g, '$1');
         isi = parseInt(isi)
         if(isNaN(isi)){
           isi = 0
@@ -134,6 +135,7 @@ Template.newwoad.events({
     }
   },
   'change .form-control'(){
+    numberInkoma()
     const camont = cekAmountReceive()
     const cekNot = cekNotrans()
     if(camont==1 & cekNot==1){
@@ -145,6 +147,7 @@ Template.newwoad.events({
   'keyup input'(){
     const camont = cekAmountReceive()
     const cekNot = cekNotrans()
+    numberInkoma()
     if(camont==1 & cekNot==1){
       $('#saveStatus').prop('disabled',false)
     }else{
@@ -286,6 +289,36 @@ function cekNotrans(){
     savStat = 0
   }
   return savStat
+}
+
+function valNumberkoma(va,x){
+  va = va.replace(/^(-)|[^0-9]+/g, '$1');
+  //console.log(va)
+  va = Number(parseInt(va).toFixed(1)).toLocaleString()
+  return va
+}
+
+function numberInkoma(){
+  const numbers = Koloms.find({'type':'number','data':'woad'})
+  numbers.forEach(function(x){
+    if(x.format!='array'){
+      var va = $('#'+x._id).val()
+      if(va!='' && va!=undefined){
+        const data = valNumberkoma(va,x._id)
+        $('#'+x._id).val(data)
+      }
+    }else{
+      $('.items_area').each(function(){
+        var a = this.id
+        ind = a.split('_')[1]
+        var va = $('#'+ind+'_'+x._id).val()
+        if(va!='' && va!=undefined){
+          const data = valNumberkoma(va,x._id)
+          $('#'+ind+'_'+x._id).val(data)
+        }
+      })
+    }
+  })
 }
 
 

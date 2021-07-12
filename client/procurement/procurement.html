@@ -1,4 +1,5 @@
 <template name="procurement">
+	{{reloadSubscribe}}
 	<div class="main-panel">
         <div class="content">
             <div class="page-inner">
@@ -19,7 +20,7 @@
 	                    			</div>
 	                    		</div>
 	                    		<div class="card-body">
-	                                <div class="table-responsive">
+	                                <div class="table-responsive" style="padding-bottom: 10px;">
 		                    			<table id="simpletable" class="table-bordered">
 		                    				<thead>
 		                    					<tr role="row">
@@ -40,7 +41,7 @@
 		                    					</tr>
 		                    					{{#each val in value}}
 		                    					<tr role="row" class="odd clickable-row {{@index}}" data-href='/procurement/edit/{{val._id}}'>
-		                    						<td class="sorting_1" rowspan="{{countSpan val._id 'no'}}">{{numbering @index}}</td>
+		                    						<td class="sorting_1" rowspan="{{countSpan val._id 'no'}}">{{numbering2 @index}}</td>
 		                    						{{#each kol in kolomss}}
 		                    						<td style="min-width:{{lebarnya kol._id}};text-align: {{kanankiri kol._id}}" class="{{stikkki kol._id}}" rowspan="{{countSpan val._id kol._id}}">{{{getValue kol._id kol.type val._id}}}</td>
 		                    						{{/each}}
@@ -62,7 +63,11 @@
 		                    				</tbody>
 		                    			</table>
 		                    			{{tables}}
+		                    			
 	                    			</div>
+	                    			{{coundData}}
+	                    			{{> pagination page='valproc'}}
+
 	                    		</div>
 	                    	</div>
 	                    </div>
@@ -101,13 +106,14 @@
                             <input class="form-control" id="text" placeholder="text" type="text" value="">
                         </div>
                     </div>
-                	-->
+                	
                     <div class="form-group mb-3">
                 		<label class="form-control-label" for="exampleFormControlInput1">Amount Of data</label>
                         <div class="input-group input-group-merge input-group-alternative">
                             <input class="form-control" id="amount" placeholder="200" type="number" value="200">
                         </div>
                     </div>
+                    -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="saveStatus" class="btn btn-primary">Filter</button>

@@ -14,7 +14,7 @@ Template.dashbord.onCreated(function helloOnCreated() {
   	Session.set('totalData',s)
   })
   Meteor.call('getTask', function(e,s){
-  	//console.log(s)
+  	console.log(s)
   	Session.set('task',s)
   })
 });

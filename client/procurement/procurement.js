@@ -6,11 +6,13 @@ import { Pilihan } from '../../libs/pilihan.js';
 import XLSX from 'xlsx';
 
 Template.procurement.onCreated(function helloOnCreated() {
+  limit = 30
+  Session.set('limit',limit)
+  Session.set('aktif',1)
 	Meteor.subscribe('Koloms',{},{})
-	Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:200})
+	Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:limit})
 	Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
-  Session.set('limit',200)
   if($('.btn-minimize').hasClass('toggled')){
   }else{
     $('.btn-minimize').click()
@@ -18,11 +20,10 @@ Template.procurement.onCreated(function helloOnCreated() {
 });
 
 Template.procurement.onRendered(function helloOnCreated() {
+  limit = 30
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:200})
+  Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:limit})
   Meteor.subscribe('Pilihan',{},{})
-  Session.set('filter',{})
-  Session.set('limit',200)
   if($('.btn-minimize').hasClass('toggled')){
   }else{
     $('.btn-minimize').click()
@@ -30,6 +31,41 @@ Template.procurement.onRendered(function helloOnCreated() {
 });
 
 Template.procurement.helpers({
+  numbering2(inde){
+    const lim = Session.get('limit')
+    const aktif = Session.get('aktif')
+    skip = parseInt(limit)*(parseInt(aktif)-1)
+    return skip+inde+1
+  },
+  reloadSubscribe(){
+    var par = {type:'proc'}
+    var lim = Session.get('limit')
+    const limit = Session.get('limit')
+    var filters = Session.get('filter')
+    const aktif = Session.get('aktif')
+    skip = parseInt(limit)*(parseInt(aktif)-1)
+    if(filters){
+      par = filters
+      par['type'] = 'proc'
+    }
+    if(lim){
+      lim = lim + skip
+      Meteor.subscribe('Values',par,{sort:{'createdAt':-1},limit:lim})
+    }
+  },
+  coundData(){
+    var par = {type:'proc'}
+    const filter = Session.get('filter')
+    if(filter){
+      par = filter
+      par['type'] = 'proc'
+    }
+    console.log(par)
+    Meteor.call('valuesCount',par,{},function(e,s){
+      console.log(s)
+      Session.set('valproc',s)
+    })
+  },
   lebarnya(id){
     if(id=='HB6nds6xKNY9nB8KG' || id=='ucScBqzoofEuc38RT' || id=='rPyaezWdwXWB4Xsxg' || id=='BNsXAnnE5rMQbDt4p' || id=='z88oWTrXMPkTdQgyR' || id=='Eyi4s5Tnmbn9QXp6Z' || id=='JLQXgJSWXCaqXRWfE' || id=='AhuMcJpyY844PWXP2' || id=="zQnkKLn5QmRuZJu75"){
       return '100px'
@@ -79,9 +115,11 @@ Template.procurement.helpers({
   value(){
     const limit = Session.get('limit')
     var filters = Session.get('filter')
+    const aktif = Session.get('aktif')
+    skip = parseInt(limit)*(parseInt(aktif)-1)
     filters['type'] = 'proc'
     //console.log(filters)
-  	data = Values.find(filters,{sort:{'createdAt':-1},limit:parseInt(limit)})
+  	data = Values.find(filters,{sort:{'createdAt':-1},limit:parseInt(limit),skip:skip})
   	if(data){
   		return data
   	}
@@ -183,20 +221,22 @@ Template.procurement.helpers({
     if(kols){
       const vale = Values.findOne({_id:row})
       //console.log(kols.count())
-      kols.forEach(function(x,i){
-        if(data.length < vale[x._id].length){
+      if(vale){
+        kols.forEach(function(x,i){
+          if(data.length < vale[x._id].length){
+            vale[x._id].forEach(function(y,n){
+              data.push({})
+            })
+          }
+          //console.log(data)
           vale[x._id].forEach(function(y,n){
-            data.push({})
+            data[n][x._id] = y 
           })
-        }
-        //console.log(data)
-        vale[x._id].forEach(function(y,n){
-          data[n][x._id] = y 
         })
-      })
-      delete data[0]
-      //console.log(data)
-      return data
+        delete data[0]
+        //console.log(data)
+        return data
+      }
     }
   },
   kolomsArr(){
@@ -285,10 +325,10 @@ Template.procurement.events({
         //console.log(fil)
       }
       $('#filterModal').modal('hide')
-      const limit = $('#amount').val()
+      //const limit = $('#amount').val()
       //console.log(limit)
-      Session.set('limit',parseInt(limit))
-      Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:parseInt(limit)})
+      //Session.set('limit',parseInt(limit))
+      //Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1}})
   }
 });
 
