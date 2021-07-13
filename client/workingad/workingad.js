@@ -6,11 +6,11 @@ import { Pilihan } from '../../libs/pilihan.js';
 import XLSX from 'xlsx';
 
 Template.workingadvance.onCreated(function helloOnCreated() {
-  limit = 30
+  limit = 40
   Session.set('limit',limit)
   Session.set('aktif',1)
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:limit})
+  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1}})
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
   if($('.btn-minimize').hasClass('toggled')){
@@ -20,11 +20,11 @@ Template.workingadvance.onCreated(function helloOnCreated() {
 });
 
 Template.workingadvance.onRendered(function helloOnCreated() {
-  limit = 30
+  limit = 40
   Session.set('limit',limit)
   Session.set('aktif',1)
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1},limit:limit})
+  Meteor.subscribe('Values',{type:'woad'},{sort:{'createdAt':-1}})
   Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
   if($('.btn-minimize').hasClass('toggled')){
@@ -65,7 +65,7 @@ Template.workingadvance.helpers({
     }
     if(lim){
       lim = lim + skip
-      Meteor.subscribe('Values',par,{sort:{'createdAt':-1},limit:lim})
+      Meteor.subscribe('Values',par,{sort:{'createdAt':-1}})
     }
   },
   coundData(){
@@ -202,8 +202,13 @@ Template.workingadvance.events({
     }
   },
   'click .exportXLS'(e){
-     $('.notExporte').remove()
-     doit('xlsx','coba.xlsx',true)
+     Session.set('limit',1000000000000)
+     $('.exportXLS').prop('disabled',true)
+     setTimeout(function(){
+      $('#hiders').css('display','block')
+      $('.notExporte').remove()
+      doit('xlsx','Working Advance export.xlsx',true)
+     }, 4000);
     
   },
   'click .fieldFilter'(){
@@ -219,7 +224,12 @@ Template.workingadvance.events({
             fil[x._id] = val
           }
         })
+        const text = $('#text').val()
+        if(text!='' && text!=undefined){
+          fil['$or'] = [{'T23oJu5bHb8XqfMc7':{ '$regex': text, '$options': 'i' }},{'Z568J675xXrZDZwtR':{ '$regex': text, '$options': 'i' }}]
+        }
         Session.set('filter',fil)
+        Session.set('aktif',1)
         //console.log(fil)
       }
       $('#filterModal').modal('hide')
@@ -247,5 +257,6 @@ function doit(type, fn, dl) {
   var wb = XLSX.utils.table_to_book(elt, {sheet:"Procurement"});
   
   XLSX.writeFile(wb, fn || ('SheetJSTableExport.' + (type || 'xlsx')));
+  $('#hiders').css('display','none')
 }
 
