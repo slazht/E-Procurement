@@ -34,6 +34,18 @@ Template.workingadvance.onRendered(function helloOnCreated() {
 });
 
 Template.workingadvance.helpers({
+  stikkki(kol){
+    if(kol=='T23oJu5bHb8XqfMc7'){
+      return 'sickiese'
+    }
+    return ''
+  },
+  tables(){
+    console.log('skc')
+    setTimeout(function(){
+      createSticky();
+    }, 1000);
+  },
   numbering2(inde){
     const lim = Session.get('limit')
     const aktif = Session.get('aktif')
@@ -110,6 +122,7 @@ Template.workingadvance.helpers({
     }
   },
   getValue(kol,type,val){
+    cekKol = Koloms.findOne({_id:kol})
     const vale = Values.findOne({_id:val})
     if(vale){
       if(type=='select'){
@@ -124,10 +137,23 @@ Template.workingadvance.helpers({
         }
       }else{
         if(type=='number'){
-          return Number((vale[kol]).toFixed(1)).toLocaleString()
+          nuu = Number((vale[kol]).toFixed(1)).toLocaleString()
         }else{
-          return vale[kol]
+          nuu = vale[kol]
         }
+        if(cekKol.kategori=='currency'){
+            if(vale['currency']){
+              cur = vale['currency'][kol]
+              if(cur=='USD'){
+                return '$'+nuu
+              }
+              if(cur=='IDR'){
+                return 'Rp'+nuu
+              }
+            }
+            return nuu
+        }
+        return nuu
         //return vale[kol]
       }
     }

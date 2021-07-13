@@ -10,9 +10,13 @@ Template.newwoad.onCreated(function helloOnCreated() {
 	Meteor.subscribe('Pilihan',{},{})
 	Meteor.subscribe('Akses',{},{})
 	const id = FlowRouter.getParam('id');
-  	if(id){
-  		Meteor.subscribe('Values',{_id:id},{})
-  	}
+  if(id){
+  	Meteor.subscribe('Values',{_id:id},{})
+  }
+  setTimeout(function() {
+    numberInkoma()
+  }, 1000);
+    
 });
 
 Template.newwoad.helpers({
@@ -91,7 +95,38 @@ Template.newwoad.helpers({
   	}else{
   		return 'disabled'
   	}
-  }
+  },
+  isCurensy(kol){
+    const col = Koloms.findOne({'_id':kol})
+    if(col){
+      if(col.kategori=='currency'){
+        return true
+      }
+    }
+    return false
+  },
+  isSelectedc(kol,val){
+    numberInkoma()
+    const id = FlowRouter.getParam('id');
+    vals = Values.findOne({_id:id})
+    if(vals){
+      if(vals['currency'] && vals['currency'][kol]==val){
+        return 'selected'
+      }
+    }
+    return ''
+  },
+  aisSelectedc(kol,val,item){
+    numberInkoma()
+    const id = FlowRouter.getParam('id');
+    vals = Values.findOne({_id:id})
+    if(vals){
+      if(vals['currency'][kol][parseInt(item)-1]==val){
+        return 'selected'
+      }
+    }
+    return ''
+  },
 });
 
 
@@ -100,6 +135,7 @@ Template.newwoad.events({
     cekAmountReceive()
   	const idd  = FlowRouter.getParam('id');
   	data = {}
+    curr = {}
     kols = Koloms.find({'data':'woad'},{sort:{nomor:1}})
     kols.forEach(function(x){
     	isi = $('#'+x._id).val()
@@ -109,9 +145,14 @@ Template.newwoad.events({
         if(isNaN(isi)){
           isi = 0
         }
+        if(x.kategori=='currency'){
+          cue = $('#cur_'+x._id).val()
+          curr[x._id] = cue
+        }
     	}
     	data[x._id] = isi
     })
+    data['currency'] = curr
     //console.log(data)
     if(idd===undefined){
     	data['createdBy'] = Meteor.userId()
