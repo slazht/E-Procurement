@@ -39,9 +39,10 @@ Template.kolom.events({
     frmt = $('#format').val()
     rules = $('#rules').val()
     error = $('#error').val()
+    kategori = $('#kategori').val()
   	//console.log(name)
     if(idd==''){
-    	Meteor.call('Koloms.insert',{'name':name,'nomor':parseInt(nomo),'formula':form,'rules':rules,'error':error,'format':frmt,'type':type,'data':data},function(e,s){
+    	Meteor.call('Koloms.insert',{'name':name,'nomor':parseInt(nomo),'formula':form,'rules':rules,'error':error,'format':frmt,'type':type,'data':data,'kategori':kategori},function(e,s){
     		if(e){
     			alert(e)
     		}
@@ -49,7 +50,7 @@ Template.kolom.events({
     	})
     }else{
       console.log(idd)
-      Meteor.call('Koloms.update',idd,{'name':name,'nomor':parseInt(nomo),'formula':form,'rules':rules,'error':error,'format':frmt,'type':type,'data':data},function(e,s){
+      Meteor.call('Koloms.update',idd,{'name':name,'nomor':parseInt(nomo),'formula':form,'rules':rules,'error':error,'format':frmt,'type':type,'data':data,'kategori':kategori},function(e,s){
         if(e){
           alert(e)
         }else{
@@ -80,6 +81,7 @@ Template.kolom.events({
     $('#xformula').val('')
     $('#rules').val('')
     $('#error').val('')
+    $('#kategori').val('')
   },
   'click .editCategori'(){
     $('#modalAddLicense').modal('show')
@@ -93,6 +95,7 @@ Template.kolom.events({
     $('#format').val(this.format)
     $('#rules').val(this.rules)
     $('#error').val(this.error)
+    $('#kategori').val(this.kategori)
   },
   'click #data'(e){
     Session.set('select',e.target.value)

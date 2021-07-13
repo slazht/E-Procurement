@@ -22,7 +22,7 @@ if (Meteor.isServer) {
         }
         const nedata = Values.insert(data);
         if(data.type=='woad'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'raw':data,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['T23oJu5bHb8XqfMc7'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }else{
           ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat data baru','privilege':getPriv(),'dataId':nedata,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }
@@ -34,7 +34,7 @@ if (Meteor.isServer) {
         }
         check(id,String);
         if(data.type=='woad'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['Z568J675xXrZDZwtR'],'dataType':data.type,'raw':data,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['T23oJu5bHb8XqfMc7'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }else{
           ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Mengisi data','privilege':getPriv(),'dataId':id,'data':data['ucScBqzoofEuc38RT'],'dataType':data.type,'raw':data,'createdAt':new Date()})
         }
@@ -47,9 +47,9 @@ if (Meteor.isServer) {
         check(id,String);
         const da = Values.findOne({_id:id})
         if(da.type=='proc'){
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['ucScBqzoofEuc38RT'],'dataType':da.type,'raw':data,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':da['ucScBqzoofEuc38RT'],'dataType':da.type,'raw':da,'createdAt':new Date()})
         }else{
-          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':dat['Z568J675xXrZDZwtR'],'dataType':da.type,'raw':data,'createdAt':new Date()})
+          ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Menghapus data','privilege':getPriv(),'dataId':da,'data':da['T23oJu5bHb8XqfMc7'],'dataType':da.type,'raw':da,'createdAt':new Date()})
         }
         Values.remove({_id:id});
       },
@@ -82,7 +82,7 @@ if (Meteor.isServer) {
         cl[x.colum] = ''
         col.push(cl);
       })
-      console.log(col)
+      //console.log(col)
       const vals = Values.find({'type':'proc','$or':col},{fields:{_id:1,ucScBqzoofEuc38RT:1},limit:6,sort:{createdAt:-1}})
       var data = []
       vals.forEach(function(s){

@@ -92,7 +92,7 @@ Template.layout.events({
       x.type = "password";
     }
   },
-  'click #cangepas'(){
+  'click #cangepasir'(){
     const pl = $('#passLama').val()
     const pb = $('#passBaru').val()
     console.log(pl)

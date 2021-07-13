@@ -188,12 +188,33 @@ Template.newprocurement.helpers({
   	}
   	return ''
   },
+  isSelectedc(kol,val){
+  	const id = FlowRouter.getParam('id');
+  	vals = Values.findOne({_id:id})
+  	if(vals){
+  		if(vals['currency'][kol]==val){
+  			return 'selected'
+  		}
+  	}
+  	return ''
+  },
   aisSelected(kol,val,item){
   	numberInkoma()
   	const id = FlowRouter.getParam('id');
   	vals = Values.findOne({_id:id})
   	if(vals){
   		if(vals[kol][parseInt(item)-1]==val){
+  			return 'selected'
+  		}
+  	}
+  	return ''
+  },
+  aisSelectedc(kol,val,item){
+  	numberInkoma()
+  	const id = FlowRouter.getParam('id');
+  	vals = Values.findOne({_id:id})
+  	if(vals){
+  		if(vals['currency'][kol][parseInt(item)-1]==val){
   			return 'selected'
   		}
   	}
@@ -214,6 +235,15 @@ Template.newprocurement.helpers({
   	}else{
   		return 'disabled'
   	}
+  },
+  isCurensy(kol){
+  	const col = Koloms.findOne({'_id':kol})
+  	if(col){
+  		if(col.kategori=='currency'){
+  			return true
+  		}
+  	}
+  	return false
   }
 });
 
@@ -229,6 +259,7 @@ Template.newprocurement.events({
   'click #saveStatus'() {
   	const idd  = FlowRouter.getParam('id');
   	data = {}
+  	curr = {}
     kols = Koloms.find({'data':'proc'},{sort:{nomor:1}})
     kols.forEach(function(x){
     	if(x.format!='array'){
@@ -239,6 +270,10 @@ Template.newprocurement.events({
 	    		if(isNaN(isi)){
 	    			isi = 0
 	    		}
+	    	}
+	    	if(x.kategori=='currency'){
+	    		cue = $('#cur_'+x._id).val()
+	    		curr[x._id] = cue
 	    	}
 	    	data[x._id] = isi
     	}else{
@@ -261,10 +296,19 @@ Template.newprocurement.events({
 		    	}else{
 		    		data[x._id] = [isi]
 		    	}
+		    	if(x.kategori=='currency'){
+		    		cue = $('#cur_'+ind+'_'+x._id).val()
+		    		if(Array.isArray(curr[x._id])){
+			    		curr[x._id].push(cue)
+			    	}else{
+			    		curr[x._id] = [cue]
+			    	}
+		    	}
 		    	
 		  	})
     	}
     })
+    data['currency'] = curr
     //console.log(data)
     if(idd===undefined){
     	data['createdBy'] = Meteor.userId()

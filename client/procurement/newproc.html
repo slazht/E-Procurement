@@ -23,15 +23,31 @@
                     </div>
                     {{/if}}
                     {{#if isText kol.type 'number'}}
-                    <div class="col-md-6">
-                    	<div class="form-group mb-3">
-	                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
-	                        <div class="input-group input-group-merge input-group-alternative">
-	                            <input class="form-control" id="{{kol._id}}" placeholder="-" type="text" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
-	                        </div>
-	                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
-	                    </div>
-                    </div>
+                    	{{#if isCurensy kol._id}}
+                    		<div class="col-md-6">
+		                    	<div class="form-group mb-3">
+			                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+			                        <div class="input-group input-group-merge input-group-alternative">
+			                        	<select style="width:50px;border: 1px solid #ceced661;" id="cur_{{kol._id}}" {{cekAKses kol._id}}>
+				                        	<option value="IDR" {{isSelectedc kol._id 'IDR'}}>IDR</option>
+				                        	<option value="USD" {{isSelectedc kol._id 'USD'}}>USD</option>
+									    </select>
+			                            <input class="form-control" id="{{kol._id}}" placeholder="-" type="text" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
+			                        </div>
+			                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
+			                    </div>
+		                    </div>
+                    	{{else}}
+		                    <div class="col-md-6">
+		                    	<div class="form-group mb-3">
+			                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+			                        <div class="input-group input-group-merge input-group-alternative">
+			                            <input class="form-control" id="{{kol._id}}" placeholder="-" type="text" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
+			                        </div>
+			                        <small id="error__{{kol._id}}" class="form-text" style="color: red;"></small>
+			                    </div>
+		                    </div>
+                    	{{/if}}
                     {{/if}}
                     {{#if isText kol.type 'date'}}
                     <div class="col-md-6">
@@ -86,15 +102,31 @@
 					                    </div>
 					                    {{/if}}
 					                    {{#if isText kol.type 'number'}}
-					                    <div class="col-md-4">
-					                    	<div class="form-group mb-3">
-						                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
-						                        <div class="input-group input-group-merge input-group-alternative">
-						                            <input class="form-control" id="{{item}}_{{kol._id}}" placeholder="-" type="text" value="{{atheValue kol._id item}}" {{cekAKses kol._id}}>
-						                        </div>
-						                        <small id="error_{{item}}_{{kol._id}}" class="form-text" style="color: red;"></small>
-						                    </div>
-					                    </div>
+					                    	{{#if isCurensy kol._id}}
+					                    		<div class="col-md-4">
+							                    	<div class="form-group mb-3">
+								                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+								                        <div class="input-group input-group-merge input-group-alternative">
+								                        	<select style="width:50px;border: 1px solid #ceced661;" id="cur_{{item}}_{{kol._id}}" {{cekAKses kol._id}}>
+									                        	<option value="IDR" {{aisSelectedc kol._id 'IDR' item}}>IDR</option>
+									                        	<option value="USD" {{aisSelectedc kol._id 'USD' item}}>USD</option>
+														    </select>
+								                            <input class="form-control" id="{{item}}_{{kol._id}}" placeholder="-" type="text" value="{{atheValue kol._id item}}" {{cekAKses kol._id}}>
+								                        </div>
+								                        <small id="error_{{item}}_{{kol._id}}" class="form-text" style="color: red;"></small>
+								                    </div>
+							                    </div>
+					                    	{{else}}
+							                    <div class="col-md-4">
+							                    	<div class="form-group mb-3">
+								                		<label class="form-control-label" for="exampleFormControlInput1">{{kol.name}}</label>
+								                        <div class="input-group input-group-merge input-group-alternative">
+								                            <input class="form-control" id="{{item}}_{{kol._id}}" placeholder="-" type="text" value="{{atheValue kol._id item}}" {{cekAKses kol._id}}>
+								                        </div>
+								                        <small id="error_{{item}}_{{kol._id}}" class="form-text" style="color: red;"></small>
+								                    </div>
+							                    </div>
+							                {{/if}}
 					                    {{/if}}
 					                    {{#if isText kol.type 'date'}}
 					                    <div class="col-md-4">

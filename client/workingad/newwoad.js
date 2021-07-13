@@ -66,6 +66,7 @@ Template.newwoad.helpers({
   	return result
   },
   isSelected(kol,val){
+    numberInkoma()
   	const id = FlowRouter.getParam('id');
   	vals = Values.findOne({_id:id})
   	if(vals){
@@ -225,12 +226,14 @@ Template.newwoad.events({
   'change #5SBhqfaBX7ASzLeFA'(e){
     console.log(e.target.value)
     const pils = Pilihan.findOne({_id:e.target.value})
+    console.log(pils.rDp4p9oeLNmmWzqpL)
     if(pils){
       $('#sGHo24YR7TxCy78oB').val(pils.sGHo24YR7TxCy78oB)
       $('#2e9AQ4ZSM4eyqjFHm').val(pils['2e9AQ4ZSM4eyqjFHm'])
       $('#fuaFpPfkGCjXfNrHf').val(pils.fuaFpPfkGCjXfNrHf)
       $('#rDp4p9oeLNmmWzqpL').val(pils.rDp4p9oeLNmmWzqpL)
     }
+    numberInkoma()
   }
 });
 
@@ -292,6 +295,10 @@ function cekNotrans(){
 }
 
 function valNumberkoma(va,x){
+  if(x=='rDp4p9oeLNmmWzqpL'){
+    console.log(va)
+    va = va.replace('.00','')
+  }
   va = va.replace(/^(-)|[^0-9]+/g, '$1');
   //console.log(va)
   va = Number(parseInt(va).toFixed(1)).toLocaleString()
@@ -299,6 +306,7 @@ function valNumberkoma(va,x){
 }
 
 function numberInkoma(){
+  console.log('cek')
   const numbers = Koloms.find({'type':'number','data':'woad'})
   numbers.forEach(function(x){
     if(x.format!='array'){
@@ -319,6 +327,10 @@ function numberInkoma(){
       })
     }
   })
+  exrate = $('#rDp4p9oeLNmmWzqpL').val()
+  if(exrate!='' && exrate!=undefined){
+    $('#rDp4p9oeLNmmWzqpL').val(exrate+'.00')
+  }
 }
 
 

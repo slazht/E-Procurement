@@ -6,11 +6,11 @@ import { Pilihan } from '../../libs/pilihan.js';
 import XLSX from 'xlsx';
 
 Template.procurement.onCreated(function helloOnCreated() {
-  limit = 30
+  limit = 40
   Session.set('limit',limit)
   Session.set('aktif',1)
 	Meteor.subscribe('Koloms',{},{})
-	Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:limit})
+	Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1}})
 	Meteor.subscribe('Pilihan',{},{})
   Session.set('filter',{})
   if($('.btn-minimize').hasClass('toggled')){
@@ -20,9 +20,9 @@ Template.procurement.onCreated(function helloOnCreated() {
 });
 
 Template.procurement.onRendered(function helloOnCreated() {
-  limit = 30
+  limit = 40
   Meteor.subscribe('Koloms',{},{})
-  Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1},limit:limit})
+  Meteor.subscribe('Values',{type:'proc'},{sort:{'createdAt':-1}})
   Meteor.subscribe('Pilihan',{},{})
   if($('.btn-minimize').hasClass('toggled')){
   }else{
@@ -50,7 +50,7 @@ Template.procurement.helpers({
     }
     if(lim){
       lim = lim + skip
-      Meteor.subscribe('Values',par,{sort:{'createdAt':-1},limit:lim})
+      //Meteor.subscribe('Values',par,{sort:{'createdAt':-1},limit:lim})
     }
   },
   coundData(){
@@ -180,17 +180,43 @@ Template.procurement.helpers({
             })
             */
             if(type=='number'){
-              return Number((vale[kol][0]).toFixed(1)).toLocaleString()
+              nuu = Number((vale[kol][0]).toFixed(1)).toLocaleString()
             }else{
-              return vale[kol][0]
+              nuu = vale[kol][0]
             }
+            if(cekKol.kategori=='currency'){
+              if(vale['currency']){
+                cur = vale['currency'][kol][0]
+                if(cur=='USD'){
+                  return '$'+nuu
+                }
+                if(cur=='IDR'){
+                  return 'Rp'+nuu
+                }
+              }
+              return nuu
+            }
+            return nuu
         }else{
           if(type=='number'){
-              return Number((vale[kol]).toFixed(1)).toLocaleString()
+              nuu = Number((vale[kol]).toFixed(1)).toLocaleString()
           }else{
-              return vale[kol]
+              nuu = vale[kol]
           }
   			  //return vale[kol]
+          if(cekKol.kategori=='currency'){
+            if(vale['currency']){
+              cur = vale['currency'][kol]
+              if(cur=='USD'){
+                return '$'+nuu
+              }
+              if(cur=='IDR'){
+                return 'Rp'+nuu
+              }
+            }
+            return nuu
+          }
+          return nuu
         }
   		}
   	}
@@ -231,6 +257,16 @@ Template.procurement.helpers({
           //console.log(data)
           vale[x._id].forEach(function(y,n){
             data[n][x._id] = y 
+            if(x.kategori=='currency'){
+              if(vale['currency']){
+                if(data[n]['currency']){
+                  data[n]['currency'][x._id] = vale['currency'][x._id][n]
+                }else{
+                  data[n]['currency'] = {}
+                  data[n]['currency'][x._id] = vale['currency'][x._id][n]
+                }
+              }
+            }
           })
         })
         delete data[0]
@@ -257,7 +293,22 @@ Template.procurement.helpers({
     }
     if(val){
       if(kols.type=='number'){
-          return Number((val[kolId]).toFixed(1)).toLocaleString()
+          nuu = Number((val[kolId]).toFixed(1)).toLocaleString()
+          if(kols.kategori=='currency'){
+            //console.log(val[kolId])
+              if(val['currency']){
+                //console.log(val[kolId])
+                cur = val['currency'][kolId]
+                if(cur=='USD'){
+                  return '$'+nuu
+                }
+                if(cur=='IDR'){
+                  return 'Rp'+nuu
+                }
+              }
+              return nuu
+          }
+          return nuu
       }
       return val[kolId]
     }
@@ -304,14 +355,19 @@ Template.procurement.events({
   	}
   },
   'click .exportXLS'(e){
-  	 $('.notExporte').remove()
-     $('#hiders').css('display','block')
-  	 doit('xlsx','exported.xlsx',true)
+    Session.set('limit',1000000000000)
+  	$('.notExporte').remove()
+    $('.exportXLS').prop('disabled',true)
+    setTimeout(function(){
+      $('#hiders').css('display','block')
+  	  doit('xlsx','exported.xlsx',true)
+      $('.exportXLS').prop('disabled',false)
+    }, 4000);
   },
   'click .fieldFilter'(){
      $('#filterModal').modal('show')
   },
-  'click #saveStatus'(){
+  'click #saveStatusr'(){
       data = Koloms.find({'data':'proc','type':'select'},{sort:{nomor:1}})
       if(data){
         var fil = {}
@@ -321,9 +377,15 @@ Template.procurement.events({
             fil[x._id] = val
           }
         })
+        const text = $('#text').val()
+        if(text!='' && text!=undefined){
+          fil['$or'] = [{'ucScBqzoofEuc38RT':{ '$regex': text, '$options': 'i' }},{'3rEt3S5Sp5DN5ct46':{ '$regex': text, '$options': 'i' }}]
+        }
         Session.set('filter',fil)
+        Session.set('aktif',1)
         //console.log(fil)
       }
+
       $('#filterModal').modal('hide')
       //const limit = $('#amount').val()
       //console.log(limit)
