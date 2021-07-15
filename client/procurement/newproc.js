@@ -626,12 +626,20 @@ function daybetlRCandDelive(){
 }
 
 function kapitalisasi() {
-	const fields = ['N5jfuhZdzDHmFtNCW','ZZXBoMgpJWcCYwdXt','u7TMwHGwWHaHbYCqu']
+	const fields = ['N5jfuhZdzDHmFtNCW','ZZXBoMgpJWcCYwdXt','u7TMwHGwWHaHbYCqu','ZZXBoMgpJWcCYwdXt']
 	fields.forEach(function(x){
 		const va = $('#'+x).val()
 		if(va!='' && va!=undefined){
 			$('#'+x).val(va.toUpperCase())
 		}
+		$('.items_area').each(function(){
+				var a = this.id
+				ind = a.split('_')[1]
+				var va = $('#'+ind+'_'+x).val()
+				if(va!='' && va!=undefined){
+					$('#'+ind+'_'+x).val(va.toUpperCase())
+				}
+		})
 	});
 }
 

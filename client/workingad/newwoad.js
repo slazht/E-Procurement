@@ -133,6 +133,7 @@ Template.newwoad.helpers({
 Template.newwoad.events({
   'click #saveStatus'() {
     cekAmountReceive()
+    hitungExchange()
   	const idd  = FlowRouter.getParam('id');
   	data = {}
     curr = {}
@@ -177,9 +178,10 @@ Template.newwoad.events({
     }
   },
   'change .form-control'(){
-    numberInkoma()
+    hitungExchange()
     const camont = cekAmountReceive()
     const cekNot = cekNotrans()
+    numberInkoma()
     if(camont==1 & cekNot==1){
       $('#saveStatus').prop('disabled',false)
     }else{
@@ -189,6 +191,7 @@ Template.newwoad.events({
   'keyup input'(){
     const camont = cekAmountReceive()
     const cekNot = cekNotrans()
+    hitungExchange()
     numberInkoma()
     if(camont==1 & cekNot==1){
       $('#saveStatus').prop('disabled',false)
@@ -371,6 +374,16 @@ function numberInkoma(){
   exrate = $('#rDp4p9oeLNmmWzqpL').val()
   if(exrate!='' && exrate!=undefined){
     $('#rDp4p9oeLNmmWzqpL').val(exrate+'.00')
+  }
+}
+
+// hitung excange rate echange rate = total receive / chf value
+// rDp4p9oeLNmmWzqpL = 2e9AQ4ZSM4eyqjFHm / fuaFpPfkGCjXfNrHf
+function hitungExchange(){
+  const receiv = $('#2e9AQ4ZSM4eyqjFHm').val()
+  const chfval = $('#fuaFpPfkGCjXfNrHf').val()
+  if(receiv!='' && receiv !=undefined && chfval!='' && chfval!=undefined){
+    $('#rDp4p9oeLNmmWzqpL').val(parseInt(receiv)/parseInt(chfval))
   }
 }
 
