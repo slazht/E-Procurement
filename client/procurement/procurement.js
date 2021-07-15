@@ -320,7 +320,10 @@ Template.procurement.helpers({
   },
   stikkki(kol){
     if(kol=='3rEt3S5Sp5DN5ct46'){
-      //return 'sickies'
+      return 'sickieseDescript'
+    }
+    if(kol=='S5aoDyopvsafjou9s'){
+      return 'sickies'
     }
     if(kol=='ucScBqzoofEuc38RT'){
       return 'sickiese'

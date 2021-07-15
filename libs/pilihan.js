@@ -13,6 +13,10 @@ if (Meteor.isServer) {
           throw new Meteor.Error('access-denied', "Access denied")
         }
         console.log(data)
+        const cekDok = Pilihan.find({name:data.name}).count()
+        if(cekDok>0){
+          return 'exist'
+        }
         const pil = Pilihan.insert(data);
         ActivitiLogs.insert({'userId':Meteor.userId(),'type':'Membuat pilihan baru '+data.name,'privilege':getPriv(),'dataId':pil,'dataType':data.parent,'createdAt':new Date()})
         return pil

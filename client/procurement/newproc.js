@@ -19,6 +19,7 @@ Template.newprocurement.onCreated(function helloOnCreated() {
   	}
   setTimeout(function() {
 		numberInkoma()
+		lrvaluechf()
   }, 1500);
 });
 
@@ -200,6 +201,7 @@ Template.newprocurement.helpers({
   },
   aisSelected(kol,val,item){
   	numberInkoma()
+  	lrvaluechf()
   	const id = FlowRouter.getParam('id');
   	vals = Values.findOne({_id:id})
   	if(vals){
@@ -211,6 +213,7 @@ Template.newprocurement.helpers({
   },
   aisSelectedc(kol,val,item){
   	numberInkoma()
+  	lrvaluechf()
   	const id = FlowRouter.getParam('id');
   	vals = Values.findOne({_id:id})
   	if(vals){
@@ -626,7 +629,7 @@ function daybetlRCandDelive(){
 }
 
 function kapitalisasi() {
-	const fields = ['N5jfuhZdzDHmFtNCW','ZZXBoMgpJWcCYwdXt','u7TMwHGwWHaHbYCqu','ZZXBoMgpJWcCYwdXt']
+	const fields = ['ZZXBoMgpJWcCYwdXt','u7TMwHGwWHaHbYCqu','ZZXBoMgpJWcCYwdXt']
 	fields.forEach(function(x){
 		const va = $('#'+x).val()
 		if(va!='' && va!=undefined){
@@ -709,5 +712,9 @@ function cekStatus(){
 	}
 }
 
+//lr value chf FZ4BbjENKGTm9yHM9
+function lrvaluechf(){
+	$('#cur_FZ4BbjENKGTm9yHM9').val('USD')
+}
 
 

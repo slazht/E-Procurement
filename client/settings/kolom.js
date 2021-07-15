@@ -43,7 +43,7 @@ Template.kolom.events({
   	//console.log(name)
     if(idd==''){
     	Meteor.call('Koloms.insert',{'name':name,'nomor':parseInt(nomo),'formula':form,'rules':rules,'error':error,'format':frmt,'type':type,'data':data,'kategori':kategori},function(e,s){
-    		if(e){
+        if(e){
     			alert(e)
     		}
     		$('#modalAddLicense').modal('hide')

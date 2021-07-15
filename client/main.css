@@ -8,19 +8,29 @@ th {
 }
 
 .sickies {
-  background: white;
-  left: 65px;
+  border: 1px solid #dee2e6;
+  background: #ffffffeb;;
+  left: 100px;
   position: sticky;
 }
 
 .sickiese {
-  background: white;
+  border: 1px solid #dee2e6;
+  background: #ffffffeb;;
   left: 0px;
   position: sticky;
 }
 
+.sickieseDescript {
+  border: 1px solid #dee2e6;
+  background: #ffffffeb;;
+  left: 165px;
+  position: sticky;
+}
+
 .sickiesactivity {
-  background: white;
+  border: 1px solid #dee2e6;
+  background: #ffffffeb;;
   left: 230px;
   position: sticky;
 }

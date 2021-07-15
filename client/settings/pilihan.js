@@ -43,6 +43,11 @@ Template.pilihan.events({
     		if(e){
     			alert(e)
     		}
+        if(s){
+          if(s=='exist'){
+            alert('Data Exist')
+          }
+        }
     		$('#modalAddLicense').modal('hide')
         $('#name').val('')
         $('#idd').val('')
