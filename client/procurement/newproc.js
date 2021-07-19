@@ -629,7 +629,7 @@ function daybetlRCandDelive(){
 }
 
 function kapitalisasi() {
-	const fields = ['ZZXBoMgpJWcCYwdXt','u7TMwHGwWHaHbYCqu','ZZXBoMgpJWcCYwdXt']
+	const fields = ['ZZXBoMgpJWcCYwdXt','ZZXBoMgpJWcCYwdXt'] //u7TMwHGwWHaHbYCqu
 	fields.forEach(function(x){
 		const va = $('#'+x).val()
 		if(va!='' && va!=undefined){

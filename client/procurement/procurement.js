@@ -190,6 +190,9 @@ Template.procurement.helpers({
                 if(cur=='USD'){
                   return '$'+nuu
                 }
+                if(cur=='CHF'){
+                  return '$'+nuu
+                }
                 if(cur=='IDR'){
                   return 'Rp'+nuu
                 }
@@ -212,6 +215,9 @@ Template.procurement.helpers({
               }
               if(cur=='IDR'){
                 return 'Rp'+nuu
+              }
+              if(cur=='CHF'){
+                  return '$'+nuu
               }
             }
             return nuu
@@ -304,6 +310,9 @@ Template.procurement.helpers({
                 }
                 if(cur=='IDR'){
                   return 'Rp'+nuu
+                }
+                if(cur=='CHF'){
+                  return '$'+nuu
                 }
               }
               return nuu
