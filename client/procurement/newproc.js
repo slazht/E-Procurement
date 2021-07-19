@@ -715,6 +715,13 @@ function cekStatus(){
 //lr value chf FZ4BbjENKGTm9yHM9
 function lrvaluechf(){
 	$('#cur_FZ4BbjENKGTm9yHM9').val('USD')
+	$('#cur_FZ4BbjENKGTm9yHM9').prop('disabled',true)
+	$('.items_area').each(function(){
+			var a = this.id
+			ind = a.split('_')[1]
+			$('#cur_'+ind+'_LkGwhDSyhMtDJkz2L').val('USD')
+			$('#cur_'+ind+'_LkGwhDSyhMtDJkz2L').prop('disabled',true)
+	})
 }
 
 
