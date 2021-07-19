@@ -31,6 +31,7 @@
 			                        	<select style="width:50px;border: 1px solid #ceced661;" id="cur_{{kol._id}}" {{cekAKses kol._id}}>
 				                        	<option value="IDR" {{isSelectedc kol._id 'IDR'}}>IDR</option>
 				                        	<option value="USD" {{isSelectedc kol._id 'USD'}}>USD</option>
+				                        	<option value="CHF" {{isSelectedc kol._id 'CHF'}}>CHF</option>
 									    </select>
 			                            <input class="form-control" id="{{kol._id}}" placeholder="-" type="text" value="{{theValue kol._id}}" {{cekAKses kol._id}}>
 			                        </div>
@@ -110,6 +111,8 @@
 								                        	<select style="width:50px;border: 1px solid #ceced661;" id="cur_{{item}}_{{kol._id}}" {{cekAKses kol._id}}>
 									                        	<option value="IDR" {{aisSelectedc kol._id 'IDR' item}}>IDR</option>
 									                        	<option value="USD" {{aisSelectedc kol._id 'USD' item}}>USD</option>
+									                        	<option value="CHF" {{aisSelectedc kol._id 'CHF' item}}>CHF</option>
+									                        	
 														    </select>
 								                            <input class="form-control" id="{{item}}_{{kol._id}}" placeholder="-" type="text" value="{{atheValue kol._id item}}" {{cekAKses kol._id}}>
 								                        </div>
