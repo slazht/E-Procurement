@@ -4,6 +4,9 @@ import { Koloms } from '../../libs/kolom.js';
 import { Values } from '../../libs/values.js';
 import { Pilihan } from '../../libs/pilihan.js';
 import XLSX from 'xlsx';
+import currency from 'currency.js';
+
+const IDR = value => currency(value, { symbol: '', decimal: '.', separator: ',' });
 
 Template.procurement.onCreated(function helloOnCreated() {
   limit = 40
@@ -179,8 +182,12 @@ Template.procurement.helpers({
               result = result + x + '</br>'
             })
             */
-            if(type=='number'){
+            if(type=='number' && cekKol.kategori!='currency'){
               nuu = Number((vale[kol][0]).toFixed(1)).toLocaleString()
+            }else if(type=='number' && cekKol.kategori=='currency'){
+              va = (vale[kol][0]+'').replace(/,/g, "");
+              nuu = IDR(va).format();
+              //nuu = vale[kol][0]
             }else{
               nuu = vale[kol][0]
             }
@@ -201,8 +208,12 @@ Template.procurement.helpers({
             }
             return nuu
         }else{
-          if(type=='number'){
+          if(type=='number' && cekKol.kategori!='currency'){
               nuu = Number((vale[kol]).toFixed(1)).toLocaleString()
+          }else if(type=='number' && cekKol.kategori=='currency'){
+              va = (vale[kol]+'').replace(/,/g, "");
+              nuu = IDR(va).format();
+              //nuu = vale[kol]
           }else{
               nuu = vale[kol]
           }
@@ -299,7 +310,11 @@ Template.procurement.helpers({
     }
     if(val){
       if(kols.type=='number'){
-          nuu = Number((val[kolId]).toFixed(1)).toLocaleString()
+          if(kols.kategori=='currency'){
+            nuu = val[kolId]
+          }else{
+            nuu = Number((val[kolId]).toFixed(1)).toLocaleString()
+          }
           if(kols.kategori=='currency'){
             //console.log(val[kolId])
               if(val['currency']){

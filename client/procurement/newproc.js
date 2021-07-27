@@ -5,6 +5,8 @@ import { Pilihan } from '../../libs/pilihan.js';
 import { Values } from '../../libs/values.js';
 import { Akses } from '../../libs/akses.js';
 
+import currency from 'currency.js';
+
 Template.newprocurement.onCreated(function helloOnCreated() {
 	Meteor.subscribe('Koloms',{},{})
 	Meteor.subscribe('Pilihan',{},{})
@@ -267,7 +269,7 @@ Template.newprocurement.events({
     kols.forEach(function(x){
     	if(x.format!='array'){
 	    	isi = $('#'+x._id).val()
-	    	if(x.type=='number'){
+	    	if(x.type=='number' && x.kategori!='currency'){
 	    		isi = isi.replace(/^(-)|[^0-9]+/g, '$1');
 	    		isi = parseInt(isi)
 	    		if(isNaN(isi)){
@@ -287,7 +289,7 @@ Template.newprocurement.events({
 		  		var a = this.id
     			ind = a.split('_')[1]
 		  		isi = $('#'+ind+'_'+x._id).val()
-		    	if(x.type=='number'){
+		    	if(x.type=='number' && x.kategori!='currency'){
 		    		isi = isi.replace(/^(-)|[^0-9]+/g, '$1');
 		    		isi = parseInt(isi)
 		    		if(isNaN(isi)){
@@ -350,7 +352,7 @@ Template.newprocurement.events({
   	daybetRFQandPO()
   	daybetlRCandDelive()
   	kapitalisasi()
-  	numberInkoma()
+  	//numberInkoma()
   	cekStatus()
   	var saveStat = Session.get('bolehSave')
   	let save = true
@@ -367,6 +369,9 @@ Template.newprocurement.events({
   		$('#saveStatus').prop('disabled',true)
   	}
   },
+  'blur input'(e){
+  	numberInkoma()
+  },
   'keyup input'(e){
   	cekDeuDel() 
   	nodblriarbl()
@@ -374,7 +379,7 @@ Template.newprocurement.events({
   	daybetRFQandPO()
   	daybetlRCandDelive()
   	kapitalisasi()
-  	numberInkoma()
+  	//numberInkoma()
   	cekStatus()
   	var saveStat = Session.get('bolehSave')
   	let save = true
@@ -540,12 +545,12 @@ function cekDeuDel() {
 		ind = a.split('_')[1]
 		const ddel = $('#'+ind+'_BNsXAnnE5rMQbDt4p').val()
 		const cons = $('#'+ind+'_soiApe2xq3LqiBuhS').val()
-		if( (ddel!='' & cons=='')) {
-			$('#error_'+ind+'_BNsXAnnE5rMQbDt4p').html('"PO/Contract" harus di isi')
-			$('#error_'+ind+'_soiApe2xq3LqiBuhS').html('"PO/Contract" harus di isi dulu')
-			$('#'+ind+'_soiApe2xq3LqiBuhS').val('')
-			list = 0
-		}
+		//if( (ddel!='' & cons=='')) {
+		//	$('#error_'+ind+'_BNsXAnnE5rMQbDt4p').html('"PO/Contract" harus di isi')
+		//	$('#error_'+ind+'_soiApe2xq3LqiBuhS').html('"PO/Contract" harus di isi dulu')
+		//	$('#'+ind+'_soiApe2xq3LqiBuhS').val('')
+		//	list = 0
+		//}
 		if (ddel=='' & cons!='') {
 			$('#error_'+ind+'_BNsXAnnE5rMQbDt4p').html('"Due Dilligent Check" harus di isi')
 			$('#error_'+ind+'_soiApe2xq3LqiBuhS').html('"Due Dilligent Check" harus di isi')
@@ -652,7 +657,11 @@ function numberInkoma(){
 		if(x.format!='array'){
 			var va = $('#'+x._id).val()
 			if(va!='' && va!=undefined){
-				const data = valNumberkoma(va,x._id)
+				if(x.kategori=='currency'){
+					data = valNumberCurrency(va,x._id)
+				}else{
+					data = valNumberkoma(va,x._id)
+				}
 				$('#'+x._id).val(data)
 			}
 		}else{
@@ -661,7 +670,11 @@ function numberInkoma(){
 				ind = a.split('_')[1]
 				var va = $('#'+ind+'_'+x._id).val()
 				if(va!='' && va!=undefined){
-					const data = valNumberkoma(va,x._id)
+					if(x.kategori=='currency'){
+							data = valNumberCurrency(va,x._id)
+					}else{
+							data = valNumberkoma(va,x._id)
+					}
 					$('#'+ind+'_'+x._id).val(data)
 				}
 			})
@@ -673,6 +686,12 @@ function valNumberkoma(va,x){
 	va = va.replace(/^(-)|[^0-9]+/g, '$1');
 	va = Number(parseInt(va).toFixed(1)).toLocaleString()
 	return va
+}
+
+function valNumberCurrency(va,x){
+	va = va.replace(/,/g, "");
+	const IDR = value => currency(value, { symbol: '', decimal: '.', separator: ',' });
+  return IDR(va).format();
 }
 
 function cekStatus(){
