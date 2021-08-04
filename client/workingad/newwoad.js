@@ -5,6 +5,8 @@ import { Pilihan } from '../../libs/pilihan.js';
 import { Values } from '../../libs/values.js';
 import { Akses } from '../../libs/akses.js';
 
+import currency from 'currency.js';
+
 Template.newwoad.onCreated(function helloOnCreated() {
 	Meteor.subscribe('Koloms',{},{})
 	Meteor.subscribe('Pilihan',{},{})
@@ -140,17 +142,17 @@ Template.newwoad.events({
     kols = Koloms.find({'data':'woad'},{sort:{nomor:1}})
     kols.forEach(function(x){
     	isi = $('#'+x._id).val()
-    	if(x.type=='number'){
+    	if(x.type=='number' && x.kategori!='currency'){
         isi = isi.replace(/^(-)|[^0-9]+/g, '$1');
         isi = parseInt(isi)
         if(isNaN(isi)){
           isi = 0
         }
-        if(x.kategori=='currency'){
+    	}
+      if(x.kategori=='currency'){
           cue = $('#cur_'+x._id).val()
           curr[x._id] = cue
-        }
-    	}
+      }
     	data[x._id] = isi
     })
     data['currency'] = curr
@@ -181,18 +183,21 @@ Template.newwoad.events({
     hitungExchange()
     const camont = cekAmountReceive()
     const cekNot = cekNotrans()
-    numberInkoma()
+    //numberInkoma()
     if(camont==1 & cekNot==1){
       $('#saveStatus').prop('disabled',false)
     }else{
       $('#saveStatus').prop('disabled',true)
     }
   },
+  'blur input'(e){
+    numberInkoma()
+  },
   'keyup input'(){
     const camont = cekAmountReceive()
     const cekNot = cekNotrans()
     hitungExchange()
-    numberInkoma()
+    //numberInkoma()
     if(camont==1 & cekNot==1){
       $('#saveStatus').prop('disabled',false)
     }else{
@@ -349,6 +354,12 @@ function valNumberkoma(va,x){
   return va
 }
 
+function valNumberCurrency(va,x){
+  va = va.replace(/,/g, "");
+  const IDR = value => currency(value, { symbol: '', decimal: '.', separator: ',' });
+  return IDR(va).format();
+}
+
 function numberInkoma(){
   console.log('cek')
   const numbers = Koloms.find({'type':'number','data':'woad'})
@@ -356,7 +367,12 @@ function numberInkoma(){
     if(x.format!='array'){
       var va = $('#'+x._id).val()
       if(va!='' && va!=undefined){
-        const data = valNumberkoma(va,x._id)
+        if(x.kategori=='currency'){
+          data = valNumberCurrency(va,x._id)
+        }else{
+          data = valNumberkoma(va,x._id)
+        }
+        //const data = valNumberkoma(va,x._id)
         $('#'+x._id).val(data)
       }
     }else{
@@ -365,7 +381,12 @@ function numberInkoma(){
         ind = a.split('_')[1]
         var va = $('#'+ind+'_'+x._id).val()
         if(va!='' && va!=undefined){
-          const data = valNumberkoma(va,x._id)
+          if(x.kategori=='currency'){
+            data = valNumberCurrency(va,x._id)
+          }else{
+            data = valNumberkoma(va,x._id)
+          }
+          //const data = valNumberkoma(va,x._id)
           $('#'+ind+'_'+x._id).val(data)
         }
       })
@@ -380,9 +401,14 @@ function numberInkoma(){
 // hitung excange rate echange rate = total receive / chf value
 // rDp4p9oeLNmmWzqpL = 2e9AQ4ZSM4eyqjFHm / fuaFpPfkGCjXfNrHf
 function hitungExchange(){
-  const receiv = $('#2e9AQ4ZSM4eyqjFHm').val()
-  const chfval = $('#fuaFpPfkGCjXfNrHf').val()
+  var receiv = $('#2e9AQ4ZSM4eyqjFHm').val()
+  var chfval = $('#fuaFpPfkGCjXfNrHf').val()
+
   if(receiv!='' && receiv !=undefined && chfval!='' && chfval!=undefined){
+    receiv = receiv.replace('.00','')
+    chfval = chfval.replace('.00','')
+    receiv = receiv.replace(/,/g, "");
+    chfval = chfval.replace(/,/g, "");
     $('#rDp4p9oeLNmmWzqpL').val(parseInt(receiv)/parseInt(chfval))
   }
 }

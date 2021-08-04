@@ -1,5 +1,6 @@
 <template name="dashbord">
 	{{bikinCHart}}
+	{{bikinCHart2}}
 	<div class="main-panel">
 		<div class="content">
 			<div class="page-inner">
@@ -67,20 +68,91 @@
 						</div>
 					</div>
 
-					<div class="col-md-5">
+					<div class="col-sm-6 col-md-4">
+						<div class="card card-stats card-round">
+							<div class="card-body ">
+								<div class="row align-items-center">
+									<div class="col-icon">
+										<div class="icon-big text-center icon-warning bubble-shadow-small">
+											<i class="fas fa-clipboard-list"></i>
+										</div>
+									</div>
+									<div class="col col-stats ml-3 ml-sm-0">
+										<div class="numbers">
+											<p class="card-category">Total Working Advance</p>
+											<h4 class="card-title">{{totalDataWoad.woad}}</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<div class="card card-stats card-round">
+							<div class="card-body">
+								<div class="row align-items-center">
+									<div class="col-icon">
+										<div class="icon-big text-center icon-danger bubble-shadow-small">
+											<i class="far fa-newspaper"></i>
+										</div>
+									</div>
+									<div class="col col-stats ml-3 ml-sm-0">
+										<div class="numbers">
+											<p class="card-category">Total Amound Received</p>
+											<h4 class="card-title">{{formatHarga totalDataWoad.ar}}</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						<div class="card card-stats card-round">
+							<div class="card-body">
+								<div class="row align-items-center">
+									<div class="col-icon">
+										<div class="icon-big text-center icon-secondary bubble-shadow-small">
+											<i class="fas fa-award"></i>
+										</div>
+									</div>
+									<div class="col col-stats ml-3 ml-sm-0">
+										<div class="numbers">
+											<p class="card-category">Completed Working Advance</p>
+											<h4 class="card-title">{{totalDataWoad.completed}}</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
 						<div class="card">
 							<div class="card-header">
 								<div class="card-title">Procurement Status</div>
 							</div>
 							<div class="card-body">
-								<div class="chart-container">
+								<div class="chart-container kontener-a">
 									<canvas id="pieCharta" style="width: 50%; height: 50%"></canvas>
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<div class="col-md-7">
+					<div class="col-md-6">
+						<div class="card">
+							<div class="card-header">
+								<div class="card-title">Working Advance Status</div>
+							</div>
+							<div class="card-body">
+								<div class="chart-container kontener-b">
+									<canvas id="pieChartw" style="width: 50%; height: 50%"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
 						<div class="card" style="padding-bottom: 33px;">
 							<div class="card-header">
 								<div class="card-title">My Task</div>
@@ -93,6 +165,27 @@
 									</div>
 									<div class="d-flex ml-auto align-items-center">
 										<h3 class="text-info fw-bold"><a href='/procurement/edit/{{id}}' >{{ref}}</a></h3>
+									</div>
+								</div>
+								<div class="separator-dashed"></div>
+								{{/each}}
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="card" style="padding-bottom: 33px;">
+							<div class="card-header">
+								<div class="card-title">My Task</div>
+							</div>
+							<div class="card-body pb-0">
+								{{#each theTaskw}}
+								<div class="d-flex">
+									<div class="flex-1 pt-1 ml-2">
+										<h5 class="fw-bold mb-1">Data perlu dilengkapi </h5>
+									</div>
+									<div class="d-flex ml-auto align-items-center">
+										<h3 class="text-info fw-bold"><a href='/workingadvance/edit/{{id}}' >{{ref}}</a></h3>
 									</div>
 								</div>
 								<div class="separator-dashed"></div>

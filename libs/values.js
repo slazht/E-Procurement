@@ -72,6 +72,25 @@ if (Meteor.isServer) {
       //console.log(depart)
       return {'proc':proc, 'lrf':lrf[0].count,'completed':cproc,'status':status}
     },
+    'totalDataWoad'(){
+      const ar  = Promise.await(Values.aggregate([
+                  { "$match" : { type : 'woad' } },
+                  { "$group" : { _id: null, count: { '$sum':'$cSCKJANGQD7prAzWg' } } }
+              ]).toArray());
+      const status = Promise.await(Values.aggregate([
+                  { "$match" : { type : 'woad' } },
+                  { "$group" : { _id: '$qqh2dKnq2ZhFQBtAh', count: { '$sum':1 } } }
+              ]).toArray());
+      //const depart = Promise.await(Values.aggregate([
+      //            { "$match" : { type : 'proc' } },
+      //            { "$group" : { _id: '$YsEJ6Ck7cLQnyWRLL', count: { '$sum':1 } } }
+      //        ]).toArray());
+      const woad = Values.find({'type':'woad'}).count()
+      const cproc = Values.find({'type':'woad','qqh2dKnq2ZhFQBtAh':'3Y9ZG2AbXnSm6jNSe'}).count()
+      //console.log(status)
+      //console.log(depart)
+      return {'woad':woad, 'ar':ar[0].count,'completed':cproc,'status':status}
+    },
     'getTask'(){
       this.unblock()
       const user = Meteor.users.findOne({_id:Meteor.userId()})
@@ -83,10 +102,28 @@ if (Meteor.isServer) {
         col.push(cl);
       })
       //console.log(col)
-      const vals = Values.find({'type':'proc','$or':col},{fields:{_id:1,ucScBqzoofEuc38RT:1},limit:6,sort:{createdAt:-1}})
+      const vals = Values.find({'type':'proc','mKbKXsbSoQNSWW2SX':{'$ne':'LiaMXsEKdv2xf98yA'},'$or':col},{fields:{_id:1,ucScBqzoofEuc38RT:1},limit:6,sort:{createdAt:-1}})
       var data = []
       vals.forEach(function(s){
         data.push({id:s._id,ref:s.ucScBqzoofEuc38RT})
+      })
+      return data
+    },
+    'getTaskw'(){
+      this.unblock()
+      const user = Meteor.users.findOne({_id:Meteor.userId()})
+      const akes = Akses.find({privilege:user.profile.privilege})
+      var col = []
+      akes.forEach(function(x){
+        var cl = {}
+        cl[x.colum] = ''
+        col.push(cl);
+      })
+      //console.log(col)
+      const vals = Values.find({'type':'woad','qqh2dKnq2ZhFQBtAh':{'$ne':'3Y9ZG2AbXnSm6jNSe'},'$or':col},{fields:{_id:1,T23oJu5bHb8XqfMc7:1},limit:6,sort:{createdAt:-1}})
+      var data = []
+      vals.forEach(function(s){
+        data.push({id:s._id,ref:s.T23oJu5bHb8XqfMc7})
       })
       return data
     },

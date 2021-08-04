@@ -5,6 +5,9 @@ import { Values } from '../../libs/values.js';
 import { Pilihan } from '../../libs/pilihan.js';
 import XLSX from 'xlsx';
 
+import currency from 'currency.js';
+const IDR = value => currency(value, { symbol: '', decimal: '.', separator: ',' });
+
 Template.workingadvance.onCreated(function helloOnCreated() {
   limit = 40
   Session.set('limit',limit)
@@ -136,11 +139,22 @@ Template.workingadvance.helpers({
           //return v.name
         }
       }else{
+        if(type=='number' && cekKol.kategori!='currency'){
+          nuu = Number((vale[kol]).toFixed(1)).toLocaleString()
+        }else if(type=='number' && cekKol.kategori=='currency'){
+          va = (vale[kol]+'').replace(/,/g, "");
+          nuu = IDR(va).format();
+          //nuu = vale[kol][0]
+        }else{
+          nuu = vale[kol]
+        }
+        /*
         if(type=='number'){
           nuu = Number((vale[kol]).toFixed(1)).toLocaleString()
         }else{
           nuu = vale[kol]
         }
+        */
         if(cekKol.kategori=='currency'){
             if(vale['currency']){
               cur = vale['currency'][kol]
