@@ -198,7 +198,7 @@ Template.procurement.helpers({
                   return '$'+nuu
                 }
                 if(cur=='CHF'){
-                  return '$'+nuu
+                  return 'CHF'+nuu
                 }
                 if(cur=='IDR'){
                   return 'Rp'+nuu
@@ -228,7 +228,7 @@ Template.procurement.helpers({
                 return 'Rp'+nuu
               }
               if(cur=='CHF'){
-                  return '$'+nuu
+                  return 'CHF'+nuu
               }
             }
             return nuu
@@ -327,7 +327,7 @@ Template.procurement.helpers({
                   return 'Rp'+nuu
                 }
                 if(cur=='CHF'){
-                  return '$'+nuu
+                  return 'CHF'+nuu
                 }
               }
               return nuu

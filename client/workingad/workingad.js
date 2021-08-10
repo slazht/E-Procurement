@@ -164,6 +164,9 @@ Template.workingadvance.helpers({
               if(cur=='IDR'){
                 return 'Rp'+nuu
               }
+              if(cur=='CHF'){
+                return 'CHF'+nuu
+              }
             }
             return nuu
         }

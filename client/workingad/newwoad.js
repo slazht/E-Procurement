@@ -17,6 +17,7 @@ Template.newwoad.onCreated(function helloOnCreated() {
   }
   setTimeout(function() {
     numberInkoma()
+    valuechf()
   }, 1000);
     
 });
@@ -109,6 +110,7 @@ Template.newwoad.helpers({
   },
   isSelectedc(kol,val){
     numberInkoma()
+    valuechf()
     const id = FlowRouter.getParam('id');
     vals = Values.findOne({_id:id})
     if(vals){
@@ -120,6 +122,7 @@ Template.newwoad.helpers({
   },
   aisSelectedc(kol,val,item){
     numberInkoma()
+    valuechf()
     const id = FlowRouter.getParam('id');
     vals = Values.findOne({_id:id})
     if(vals){
@@ -411,6 +414,12 @@ function hitungExchange(){
     chfval = chfval.replace(/,/g, "");
     $('#rDp4p9oeLNmmWzqpL').val(parseInt(receiv)/parseInt(chfval))
   }
+}
+
+// cur_fuaFpPfkGCjXfNrHf chf value
+function valuechf(){
+  $('#cur_fuaFpPfkGCjXfNrHf').val('CHF')
+  $('#cur_fuaFpPfkGCjXfNrHf').prop('disabled',true)
 }
 
 
