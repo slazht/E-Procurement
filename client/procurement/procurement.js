@@ -195,13 +195,13 @@ Template.procurement.helpers({
               if(vale['currency']){
                 cur = vale['currency'][kol][0]
                 if(cur=='USD'){
-                  return '$'+nuu
+                  //return '$'+nuu
                 }
                 if(cur=='CHF'){
-                  return 'CHF'+nuu
+                  //return 'CHF'+nuu
                 }
                 if(cur=='IDR'){
-                  return 'Rp'+nuu
+                  //return 'Rp'+nuu
                 }
               }
               return nuu
@@ -222,13 +222,13 @@ Template.procurement.helpers({
             if(vale['currency']){
               cur = vale['currency'][kol]
               if(cur=='USD'){
-                return '$'+nuu
+                //return '$'+nuu
               }
               if(cur=='IDR'){
-                return 'Rp'+nuu
+                //return 'Rp'+nuu
               }
               if(cur=='CHF'){
-                  return 'CHF'+nuu
+                //return 'CHF'+nuu
               }
             }
             return nuu
@@ -321,13 +321,13 @@ Template.procurement.helpers({
                 //console.log(val[kolId])
                 cur = val['currency'][kolId]
                 if(cur=='USD'){
-                  return '$'+nuu
+                  //return '$'+nuu
                 }
                 if(cur=='IDR'){
-                  return 'Rp'+nuu
+                  //return 'Rp'+nuu
                 }
                 if(cur=='CHF'){
-                  return 'CHF'+nuu
+                  //return 'CHF'+nuu
                 }
               }
               return nuu

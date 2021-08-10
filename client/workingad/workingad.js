@@ -159,13 +159,13 @@ Template.workingadvance.helpers({
             if(vale['currency']){
               cur = vale['currency'][kol]
               if(cur=='USD'){
-                return '$'+nuu
+                //return '$'+nuu
               }
               if(cur=='IDR'){
-                return 'Rp'+nuu
+                //return 'Rp'+nuu
               }
               if(cur=='CHF'){
-                return 'CHF'+nuu
+                //return 'CHF'+nuu
               }
             }
             return nuu
