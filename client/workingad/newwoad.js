@@ -425,6 +425,10 @@ function hitungExchange(){
 function valuechf(){
   $('#cur_fuaFpPfkGCjXfNrHf').val('CHF')
   $('#cur_fuaFpPfkGCjXfNrHf').prop('disabled',true)
+  $('#cur_2e9AQ4ZSM4eyqjFHm').val('IDR')
+  $('#cur_2e9AQ4ZSM4eyqjFHm').prop('disabled',true)
+  $('#cur_rDp4p9oeLNmmWzqpL').val('IDR')
+  $('#cur_rDp4p9oeLNmmWzqpL').prop('disabled',true)
 }
 
 
