@@ -351,8 +351,13 @@ function valNumberkoma(va,x){
     console.log(va)
     va = va.replace('.00','')
   }
-  va = va.replace(/^(-)|[^0-9]+/g, '$1');
+  //va = va.replace(/^(-)|[^0-9]+/g, '$1');
+  va = va.replace(/,/g, "");
   //console.log(va)
+  if(x=='rDp4p9oeLNmmWzqpL'){
+    va = Number(parseFloat(va).toFixed(2)).toLocaleString()
+    return va
+  }
   va = Number(parseInt(va).toFixed(1)).toLocaleString()
   return va
 }
@@ -397,7 +402,7 @@ function numberInkoma(){
   })
   exrate = $('#rDp4p9oeLNmmWzqpL').val()
   if(exrate!='' && exrate!=undefined){
-    $('#rDp4p9oeLNmmWzqpL').val(exrate+'.00')
+    //$('#rDp4p9oeLNmmWzqpL').val(exrate+'.00')
   }
 }
 
@@ -408,11 +413,11 @@ function hitungExchange(){
   var chfval = $('#fuaFpPfkGCjXfNrHf').val()
 
   if(receiv!='' && receiv !=undefined && chfval!='' && chfval!=undefined){
-    receiv = receiv.replace('.00','')
-    chfval = chfval.replace('.00','')
+    //receiv = receiv.replace('.00','')
+    //chfval = chfval.replace('.00','')
     receiv = receiv.replace(/,/g, "");
     chfval = chfval.replace(/,/g, "");
-    $('#rDp4p9oeLNmmWzqpL').val(parseInt(receiv)/parseInt(chfval))
+    $('#rDp4p9oeLNmmWzqpL').val((parseInt(receiv)/parseInt(chfval)).toFixed(2))
   }
 }
 
