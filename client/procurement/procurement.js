@@ -63,9 +63,9 @@ Template.procurement.helpers({
       par = filter
       par['type'] = 'proc'
     }
-    console.log(par)
+    //console.log(par)
     Meteor.call('valuesCount',par,{},function(e,s){
-      console.log(s)
+      //console.log(s)
       Session.set('valproc',s)
     })
   },
@@ -286,15 +286,17 @@ Template.procurement.helpers({
             }
           })
         })
-        delete data[0]
-        //console.log(data)
-        return data
+        //delete data[0]
+        let ndata = data.slice(1,data.length)
+        //console.log(ndata)
+        return ndata
       }
     }
   },
   kolomsArr(){
      const kols = Koloms.find({'data':'proc','format':'array'},{sort:{nomor:1}})
      if(kols){
+      //console.log(kols)
       return kols
      }
   },

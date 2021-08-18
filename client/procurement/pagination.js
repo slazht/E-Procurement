@@ -23,7 +23,7 @@ Template.pagination.helpers({
 	  			numers.push(i)
 	  		}
 	  	}
-	  	console.log(numers)
+	  	//console.log(numers)
 	    return numers
 	}
   },
