@@ -37,6 +37,13 @@ Template.workingadvance.onRendered(function helloOnCreated() {
 });
 
 Template.workingadvance.helpers({
+  lebarnya(id){
+    if(id=="GvZni2SWBtnPLYfYM"){
+      return '200px'
+    }else{
+      return '95px'
+    }
+  },
   stikkki(kol){
     if(kol=='T23oJu5bHb8XqfMc7'){
       return 'sickiese'
@@ -134,7 +141,7 @@ Template.workingadvance.helpers({
           if(type=='number'){
               return Number((v.name).toFixed(1)).toLocaleString()
           }else{
-              return v.name
+              return '"'+v.name
           }
           //return v.name
         }
@@ -146,7 +153,7 @@ Template.workingadvance.helpers({
           nuu = IDR(va).format();
           //nuu = vale[kol][0]
         }else{
-          nuu = vale[kol]
+          nuu = '"'+vale[kol]
         }
         /*
         if(type=='number'){
