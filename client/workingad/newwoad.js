@@ -54,6 +54,9 @@ Template.newwoad.helpers({
   	const id = FlowRouter.getParam('id');
   	vals = Values.findOne({_id:id})
   	if(vals){
+      if(cid=='cSCKJANGQD7prAzWg'){
+        console.log('disini ',vals[cid])
+      }
   		result = vals[cid]
   	}
   	const col = Koloms.findOne({'_id':cid})
@@ -65,7 +68,7 @@ Template.newwoad.helpers({
   				formu = formu.replace('{'+x._id+'}',vals[x._id])
   			}
   		})
-  		result = eval(formu)
+  		//result = eval(formu)
   	}
   	if(col && col.type=='number' && result==''){
   		result = 0
@@ -311,7 +314,7 @@ function cekAmountReceive(){
     const note = $('#GvZni2SWBtnPLYfYM').val()
     if(note=='' || note==undefined){
       $('#error__GvZni2SWBtnPLYfYM').html('"Note" harus di isi')
-      savStat = 0
+      savStat = 1
     }else{
       $('#error__GvZni2SWBtnPLYfYM').html('')
     }

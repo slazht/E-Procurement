@@ -87,7 +87,7 @@ if (Meteor.isServer) {
       //        ]).toArray());
       const woad = Values.find({'type':'woad'}).count()
       const cproc = Values.find({'type':'woad','qqh2dKnq2ZhFQBtAh':'3Y9ZG2AbXnSm6jNSe'}).count()
-      //console.log(status)
+      console.log(ar)
       //console.log(depart)
       return {'woad':woad, 'ar':ar[0].count,'completed':cproc,'status':status}
     },
