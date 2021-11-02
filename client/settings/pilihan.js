@@ -78,7 +78,7 @@ Template.pilihan.events({
           alert(e)
         }
         $('#nameclm').val('')
-        $('#idd').val('')
+        $('#iddd').val('')
       })
     }else{
       Meteor.call('Pilihan.update',idd,{'name':name,'sGHo24YR7TxCy78oB':satu,'2e9AQ4ZSM4eyqjFHm':duaa,'fuaFpPfkGCjXfNrHf':tiga,'rDp4p9oeLNmmWzqpL':empa},function(e,s){
@@ -86,7 +86,7 @@ Template.pilihan.events({
           alert(e)
         }
         $('#nameclm').val('')
-        $('#idd').val('')
+        $('#iddd').val('')
       })
     }
     $('#sGHo24YR7TxCy78oB').val('')
@@ -112,6 +112,7 @@ Template.pilihan.events({
   },
   'click .tmbUser'(){
     const id = FlowRouter.getParam('id');
+    $('#iddd').val('')
     if(id=='5SBhqfaBX7ASzLeFA'){
       $('#modalCLMs').modal('show')
     }else{
