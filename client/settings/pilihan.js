@@ -98,7 +98,7 @@ Template.pilihan.events({
   'keyup .ecr'(){
     duaa = $('#2e9AQ4ZSM4eyqjFHm').val()
     tiga = $('#fuaFpPfkGCjXfNrHf').val()
-    $('#rDp4p9oeLNmmWzqpL').val(parseInt(duaa)/parseInt(tiga))
+    $('#rDp4p9oeLNmmWzqpL').val(parseFloat(duaa)/parseFloat(tiga))
   },
   'click .deleteCategori'(){
   	cek =  confirm('Apakah Anda yakin akan menghapus data ini ?')
@@ -115,6 +115,12 @@ Template.pilihan.events({
     $('#iddd').val('')
     if(id=='5SBhqfaBX7ASzLeFA'){
       $('#modalCLMs').modal('show')
+      $('#sGHo24YR7TxCy78oB').val('')
+      $('#2e9AQ4ZSM4eyqjFHm').val('')
+      $('#fuaFpPfkGCjXfNrHf').val('')
+      $('#rDp4p9oeLNmmWzqpL').val('')
+      $('#nameclm').val('')
+      $('#clm-title').html('Tambah CLM Baru')
     }else{
       $('#modalAddLicense').modal('show')
       $('#modal-title-default').html('Tambah Data Baru')
@@ -132,6 +138,7 @@ Template.pilihan.events({
       $('#2e9AQ4ZSM4eyqjFHm').val(this['2e9AQ4ZSM4eyqjFHm'])
       $('#fuaFpPfkGCjXfNrHf').val(this.fuaFpPfkGCjXfNrHf)
       $('#rDp4p9oeLNmmWzqpL').val(this.rDp4p9oeLNmmWzqpL)
+      $('#clm-title').html('Edit CLM '+this.name)
     }else{
       $('#modalAddLicense').modal('show')
       $('#modal-title-default').html('Edit Data')

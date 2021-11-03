@@ -420,7 +420,7 @@ function hitungExchange(){
     //chfval = chfval.replace('.00','')
     receiv = receiv.replace(/,/g, "");
     chfval = chfval.replace(/,/g, "");
-    $('#rDp4p9oeLNmmWzqpL').val((parseInt(receiv)/parseInt(chfval)).toFixed(2))
+    $('#rDp4p9oeLNmmWzqpL').val((parseFloat(receiv)/parseFloat(chfval)).toFixed(2))
   }
 }
 
